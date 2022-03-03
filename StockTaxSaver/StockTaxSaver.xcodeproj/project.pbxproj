@@ -8,18 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		0B42124B27CC91E0007345A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42124A27CC91E0007345A3 /* AppDelegate.swift */; };
-		0B42124F27CC91E0007345A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42124E27CC91E0007345A3 /* ViewController.swift */; };
 		0B42125427CC91E2007345A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B42125327CC91E2007345A3 /* Assets.xcassets */; };
 		0B42125727CC91E2007345A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B42125527CC91E2007345A3 /* LaunchScreen.storyboard */; };
+		0B42125F27D04127007345A3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42125E27D04127007345A3 /* MainViewController.swift */; };
+		0B42126227D041D2007345A3 /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42126127D041D2007345A3 /* UIViewController+Extentions.swift */; };
+		0B42126527D04925007345A3 /* StockListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42126427D04925007345A3 /* StockListController.swift */; };
+		0B42126727D0497A007345A3 /* AddStockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42126627D0497A007345A3 /* AddStockController.swift */; };
+		0B42126927D04991007345A3 /* CalculatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42126827D04991007345A3 /* CalculatorController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0B42124727CC91E0007345A3 /* StockTaxSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockTaxSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B42124A27CC91E0007345A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0B42124E27CC91E0007345A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0B42125327CC91E2007345A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B42125627CC91E2007345A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B42125827CC91E2007345A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B42125E27D04127007345A3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		0B42126127D041D2007345A3 /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
+		0B42126427D04925007345A3 /* StockListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockListController.swift; sourceTree = "<group>"; };
+		0B42126627D0497A007345A3 /* AddStockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStockController.swift; sourceTree = "<group>"; };
+		0B42126827D04991007345A3 /* CalculatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,13 +60,33 @@
 		0B42124927CC91E0007345A3 /* StockTaxSaver */ = {
 			isa = PBXGroup;
 			children = (
+				0B42126327D048F3007345A3 /* Controller */,
+				0B42126027D041B6007345A3 /* Utils */,
 				0B42124A27CC91E0007345A3 /* AppDelegate.swift */,
-				0B42124E27CC91E0007345A3 /* ViewController.swift */,
 				0B42125327CC91E2007345A3 /* Assets.xcassets */,
 				0B42125527CC91E2007345A3 /* LaunchScreen.storyboard */,
 				0B42125827CC91E2007345A3 /* Info.plist */,
+				0B42125E27D04127007345A3 /* MainViewController.swift */,
 			);
 			path = StockTaxSaver;
+			sourceTree = "<group>";
+		};
+		0B42126027D041B6007345A3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0B42126127D041D2007345A3 /* UIViewController+Extentions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0B42126327D048F3007345A3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0B42126427D04925007345A3 /* StockListController.swift */,
+				0B42126627D0497A007345A3 /* AddStockController.swift */,
+				0B42126827D04991007345A3 /* CalculatorController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,8 +159,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B42124F27CC91E0007345A3 /* ViewController.swift in Sources */,
+				0B42126727D0497A007345A3 /* AddStockController.swift in Sources */,
+				0B42126927D04991007345A3 /* CalculatorController.swift in Sources */,
+				0B42125F27D04127007345A3 /* MainViewController.swift in Sources */,
 				0B42124B27CC91E0007345A3 /* AppDelegate.swift in Sources */,
+				0B42126527D04925007345A3 /* StockListController.swift in Sources */,
+				0B42126227D041D2007345A3 /* UIViewController+Extentions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
