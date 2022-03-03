@@ -10,7 +10,16 @@ import UIKit
 
 class StockListController: UIViewController {
     
+    let searchBar = UISearchBar()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpViews()
     }
+    
+    private func setUpViews() {
+        
+        view.addSubview(searchBar)
+    }
+
 }
