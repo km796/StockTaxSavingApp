@@ -7,15 +7,27 @@
 
 import Foundation
 
-struct APIService<T> {
+struct APIService {
     
-    typealias APICompletion = (Result<T, NetworkError>) -> Void
+    typealias APICompletion = (Result<StockResponse, NetworkError>) -> Void
     
-    func fetchStockSearches(searchQuery: String, completion: @escaping APICompletion) {
+    func fetchStockSearches(with searchQuery: String, completion: @escaping APICompletion) {
         
-        let url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=\(searchQuery)&apikey=\(API_KEY)"
+        let url = URL(string: "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=\(searchQuery)&apikey=\(API_KEY)")!
         
-        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(.failure(.requestFailed))
+                return
+            }
+            
+            do {
+                let searchResponse = try JSONDecoder().decode(StockResponse.self, from: data)
+                completion(.success(searchResponse))
+            } catch {
+                completion(.failure(.decodingFailed))
+            }
+        }.resume()
     }
 }
 
