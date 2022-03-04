@@ -14,6 +14,7 @@ class StockListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setStatusBar()
         setUpViews()
     }
     

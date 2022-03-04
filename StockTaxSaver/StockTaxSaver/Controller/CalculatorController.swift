@@ -11,6 +11,7 @@ class CalculatorController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setStatusBar()
     }
     
 }
