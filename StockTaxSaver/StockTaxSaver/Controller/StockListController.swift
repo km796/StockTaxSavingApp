@@ -10,17 +10,45 @@ import UIKit
 
 class StockListController: UIViewController {
     
-    let searchBar = UISearchBar()
+    let tableView = UITableView()
+    
+    let viewModel = StockListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setStatusBar()
-        setUpViews()
+        style()
+        layout()
+        bind()
+        APIService().fetchStockInfo(with: "IBM")
     }
     
-    private func setUpViews() {
+    
+    private func style() {
+        view.backgroundColor = .white
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(searchBar)
+        configureTableView()
+    }
+    private func layout() {
+        
+        view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func bind() {
+        
+    }
+    
+    private func configureTableView() {
+        tableView.rowHeight = 150
+        
     }
 
 }

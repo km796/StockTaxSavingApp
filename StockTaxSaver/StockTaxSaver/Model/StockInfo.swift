@@ -7,13 +7,18 @@
 
 import Foundation
 
-struct StockInfo {
+struct StockInfo: Decodable {
     
     let meta: Meta
     let timeseries: [String: OHLCV]
+    
+    enum  CodingKeys: String, CodingKey {
+        case meta = "Meta Data"
+        case timeseries = "Time Series (5min)"
+    }
 }
 
-struct Meta {
+struct Meta: Decodable {
     let symbol: String
     
     enum CodingKeys: String, CodingKey {
@@ -21,7 +26,7 @@ struct Meta {
     }
 }
 
-struct OHLCV {
+struct OHLCV: Decodable {
     let open: String
     
     enum CodingKeys: String, CodingKey {
