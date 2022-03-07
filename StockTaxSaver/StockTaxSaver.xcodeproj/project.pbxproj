@@ -21,6 +21,7 @@
 		0B42127B27D0A7CD007345A3 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42127A27D0A7CD007345A3 /* Keys.swift */; };
 		0B42127E27D0B9D9007345A3 /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42127D27D0B9D9007345A3 /* SearchResultViewModel.swift */; };
 		0B42128027D1B64B007345A3 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42127F27D1B64B007345A3 /* SearchResultCell.swift */; };
+		0B42128627D5B371007345A3 /* SaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42128527D5B371007345A3 /* SaveService.swift */; };
 		C413412AB5E8DBAA9A42E0A9 /* Pods_StockTaxSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF54B6E6263814B5B7F7933F /* Pods_StockTaxSaver.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		0B42127A27D0A7CD007345A3 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		0B42127D27D0B9D9007345A3 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		0B42127F27D1B64B007345A3 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		0B42128527D5B371007345A3 /* SaveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveService.swift; sourceTree = "<group>"; };
 		1DBD2812C7F7D7AC39AA208C /* Pods-StockTaxSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockTaxSaver.debug.xcconfig"; path = "Target Support Files/Pods-StockTaxSaver/Pods-StockTaxSaver.debug.xcconfig"; sourceTree = "<group>"; };
 		8732CC17FF658FE6E4FB6F71 /* Pods-StockTaxSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockTaxSaver.release.xcconfig"; path = "Target Support Files/Pods-StockTaxSaver/Pods-StockTaxSaver.release.xcconfig"; sourceTree = "<group>"; };
 		CF54B6E6263814B5B7F7933F /* Pods_StockTaxSaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StockTaxSaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,7 @@
 		0B42124927CC91E0007345A3 /* StockTaxSaver */ = {
 			isa = PBXGroup;
 			children = (
+				0B42128427D5B344007345A3 /* DataPersistence */,
 				0B42128127D1B695007345A3 /* View */,
 				0B42127C27D0ABF0007345A3 /* ViewModel */,
 				0B42126F27D083AE007345A3 /* Network */,
@@ -144,6 +147,14 @@
 				0B42127F27D1B64B007345A3 /* SearchResultCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0B42128427D5B344007345A3 /* DataPersistence */ = {
+			isa = PBXGroup;
+			children = (
+				0B42128527D5B371007345A3 /* SaveService.swift */,
+			);
+			path = DataPersistence;
 			sourceTree = "<group>";
 		};
 		6B21D3A184B7CC2C44066839 /* Pods */ = {
@@ -284,6 +295,7 @@
 				0B42126C27D06A1D007345A3 /* StockResponse.swift in Sources */,
 				0B42125F27D04127007345A3 /* MainViewController.swift in Sources */,
 				0B42124B27CC91E0007345A3 /* AppDelegate.swift in Sources */,
+				0B42128627D5B371007345A3 /* SaveService.swift in Sources */,
 				0B42126527D04925007345A3 /* StockListController.swift in Sources */,
 				0B42126227D041D2007345A3 /* UIViewController+Extentions.swift in Sources */,
 				0B42127527D09D76007345A3 /* NetworkError.swift in Sources */,
