@@ -7,12 +7,16 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class StockListController: UIViewController {
     
     let tableView = UITableView()
     
     let viewModel = StockListViewModel()
+    
+    let reuseIdentifier = "StockListCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +46,11 @@ class StockListController: UIViewController {
     }
     
     private func bind() {
-        
+        viewModel.getStockList()
+            .bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: StockListCell.self)){
+                index, model, cell in
+                cell.stockInfo = model
+            }
     }
     
     private func configureTableView() {

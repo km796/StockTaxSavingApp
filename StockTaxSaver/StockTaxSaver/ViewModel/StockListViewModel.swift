@@ -10,18 +10,20 @@ import RxSwift
 
 struct StockListViewModel {
     
-    let disposeBag = DisposeBag()
     
-    func getStockList() {
+    func getStockList() -> Observable<StockInfo> {
         
         let symbols = Observable.from(SaveService.shared.getList())
-        
-        symbols.flatMap{symbol in
+
+        return symbols.flatMap{ symbol in
             return getStockInfoRx(symbol: symbol)
-        }.subscribe(onNext: { stockInfo in
-            print(stockInfo)
-        }).disposed(by: disposeBag)
+        }
         
+//        let symbols = SaveService.shared.getList()
+//        let allObsrvables = symbols.map {
+//            getStockInfoRx(symbol: $0)
+//        }
+//
     }
     
     func getStockInfoRx(symbol: String) -> Observable<StockInfo> {
