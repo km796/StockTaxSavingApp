@@ -20,7 +20,6 @@ class StockListController: UIViewController {
         style()
         layout()
         bind()
-        APIService().fetchStockInfo(with: "IBM")
     }
     
     

@@ -11,11 +11,12 @@ import RxCocoa
 
 struct APIService {
     
-    typealias APICompletion = (Result<StockResponse, NetworkError>) -> Void
-    
-    func fetchStockSearches(with searchQuery: String, completion: @escaping APICompletion) {
+    func fetchStockSearches(with searchQuery: String, completion: @escaping (Result<StockResponse, NetworkError>) -> Void) {
         
-        let url = URL(string: "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=\(searchQuery)&apikey=\(API_KEY)")!
+        guard let url = URL(string: "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=\(searchQuery)&apikey=\(API_KEY)") else {
+            completion(.failure(.invalidURL))
+            return
+        }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
@@ -32,20 +33,22 @@ struct APIService {
         }.resume()
     }
     
-    func fetchStockInfo(with symbol: String) {
-        let url = URL(string: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=\(symbol)&interval=5min&apikey=\(API_KEY)")!
+    func fetchStockInfo(with symbol: String, completion: @escaping (Result<StockInfo, NetworkError>) -> Void) {
+        guard let url = URL(string: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=\(symbol)&interval=5min&apikey=\(API_KEY)") else {
+            completion(.failure(.invalidURL))
+            return
+        }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
-                print("err")
+                completion(.failure(.requestFailed))
                 return
             }
             do {
                 let stockInfo = try JSONDecoder().decode(StockInfo.self, from: data)
-                print(stockInfo)
+                completion(.success(stockInfo))
             } catch {
-                print("err decode")
-                print(data)
+                completion(.failure(.decodingFailed))
             }
         }.resume()
     }
