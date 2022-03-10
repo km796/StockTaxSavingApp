@@ -30,6 +30,8 @@ class StockListCell: UITableViewCell {
     }
     
     private func styleViews() {
+        name.translatesAutoresizingMaskIntoConstraints = false
+        open.translatesAutoresizingMaskIntoConstraints = false
         
     }
     

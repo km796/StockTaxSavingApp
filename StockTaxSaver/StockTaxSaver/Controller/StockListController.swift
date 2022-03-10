@@ -18,12 +18,19 @@ class StockListController: UIViewController {
     
     let reuseIdentifier = "StockListCell"
     
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setStatusBar()
         style()
         layout()
         bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getStockList()
     }
     
     
@@ -46,16 +53,16 @@ class StockListController: UIViewController {
     }
     
     private func bind() {
-        viewModel.getStockList()
+        viewModel.stockInfos
             .bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: StockListCell.self)){
                 index, model, cell in
                 cell.stockInfo = model
-            }
+            }.disposed(by: disposeBag)
     }
     
     private func configureTableView() {
         tableView.rowHeight = 150
-        
+        tableView.register(StockListCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
 
 }
