@@ -14,16 +14,26 @@ struct StockListViewModel {
     let stockInfos = PublishSubject<[StockInfo]>()
     
     
+    /*성공 함수. reduce 함수를 이용해 Observable의 모든 emitted events 들을 array 로 묶어 stockInfos Subject 로 넘겨주는 방식.
+     reduce 는 반드시 onCompleted 후에 리턴을 하기 때문에 getObservableRx 에 onCompleted을 넣는것을 잊지말자 */
+    
     func getStockList() {
         
-        let symbols = Observable.from(SaveService.shared.getList())
-        var stockInfoContainer = [StockInfo]()
+        let symbolList = SaveService.shared.getList()
+        print(symbolList)
+        let symbols = Observable.from(symbolList)
         
-        symbols.concatMap{ symbol in
-            return getStockInfoRx(symbol: symbol)
-        }.subscribe(onNext: {si in
-            stockInfoContainer.append(si)
-            stockInfos.onNext(stockInfoContainer)
+        symbols.flatMap{ symbol -> Observable<StockInfo> in
+            let obs:Observable<StockInfo> = getStockInfoRx(symbol: symbol)
+            print(obs)
+            return obs
+        }.reduce([]){ agg, si -> [StockInfo] in
+            print(agg)
+            return agg + [si]
+        }
+        .subscribe(onNext: {silist in
+            print(silist)
+            stockInfos.onNext(silist)
         }).disposed(by: disposeBag)
     }
     
@@ -33,6 +43,7 @@ struct StockListViewModel {
                 switch result {
                 case .success(let si):
                     observer.onNext(si)
+                    observer.onCompleted()
                 case .failure(let error):
                     observer.onError(error)
                 }
@@ -65,5 +76,22 @@ struct StockListViewModel {
         stockInfos.onNext(stockInfoList)
     }
     
+    //실패한 시도. stockInfoContainer 에 모든 event stream 을 모아서 그걸 publish subject 에 보내려 했지만 빈 array 가 보내짐
+    func getStockList3() {
+        
+        let symbolList = SaveService.shared.getList()
+        print(symbolList)
+        let symbols = Observable.from(symbolList)
+        
+        var stockInfoContainer = [StockInfo]()
+        
+        symbols.concatMap{ symbol in
+            return getStockInfoRx(symbol: symbol)
+        }.subscribe(onNext: {si in
+            stockInfoContainer.append(si)
+        }, onCompleted: {
+            stockInfos.onNext(stockInfoContainer)
+        }).disposed(by: disposeBag)
+    }
     
 }
