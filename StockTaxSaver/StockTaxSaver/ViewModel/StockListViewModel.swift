@@ -23,16 +23,14 @@ struct StockListViewModel {
         print(symbolList)
         let symbols = Observable.from(symbolList)
         
-        symbols.flatMap{ symbol -> Observable<StockInfo> in
+        symbols.concatMap{ symbol -> Observable<StockInfo> in
             let obs:Observable<StockInfo> = getStockInfoRx(symbol: symbol)
-            print(obs)
             return obs
         }.reduce([]){ agg, si -> [StockInfo] in
             print(agg)
             return agg + [si]
         }
         .subscribe(onNext: {silist in
-            print(silist)
             stockInfos.onNext(silist)
         }).disposed(by: disposeBag)
     }
@@ -51,6 +49,8 @@ struct StockListViewModel {
             return Disposables.create()
         }
     }
+    
+    
     
     //실패한 함수. 빈 array 를 보내준다. map 안에 API 서비스가 백그라운드에서 실행되는것을 기다리지 않고 바로 temp 를 리턴해서 발행하는 현상.
     

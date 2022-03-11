@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Charts
 
 class StockListCell: UITableViewCell {
     
@@ -16,8 +17,11 @@ class StockListCell: UITableViewCell {
         }
     }
     
+    let symbol = UILabel()
     let name = UILabel()
     let open = UILabel()
+    
+    let chartView = LineChartView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,21 +34,40 @@ class StockListCell: UITableViewCell {
     }
     
     private func styleViews() {
-        name.translatesAutoresizingMaskIntoConstraints = false
+        symbol.translatesAutoresizingMaskIntoConstraints = false
         open.translatesAutoresizingMaskIntoConstraints = false
+        chartView.translatesAutoresizingMaskIntoConstraints = false
         
+        open.textAlignment = .right
+        
+        chartView.chartDescription?.enabled = false
+        chartView.legend.enabled = false
+        chartView.xAxis.enabled = false
+        chartView.leftAxis.enabled = false
+        chartView.rightAxis.enabled = false
+        chartView.legend.form = .line
+    
+    
     }
     
     private func layout() {
-        addSubview(name)
+        addSubview(symbol)
         addSubview(open)
+        addSubview(chartView)
         
         NSLayoutConstraint.activate([
-            name.topAnchor.constraint(equalTo: topAnchor, constant: 4),
-            name.leftAnchor.constraint(equalTo: leftAnchor, constant: 4),
+            symbol.centerYAnchor.constraint(equalTo: centerYAnchor),
+            symbol.leftAnchor.constraint(equalTo: leftAnchor, constant: 4),
+            symbol.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
             
-            open.topAnchor.constraint(equalTo: topAnchor, constant: 4),
-            open.rightAnchor.constraint(equalTo: rightAnchor, constant: 4)
+            open.centerYAnchor.constraint(equalTo: centerYAnchor),
+            open.rightAnchor.constraint(equalTo: rightAnchor, constant: -4),
+            open.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
+            
+            chartView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            chartView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
+            chartView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            chartView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8)
         ])
     }
     
@@ -53,9 +76,38 @@ class StockListCell: UITableViewCell {
             return
         }
         
-        name.text = stockInfo.meta.symbol
+        symbol.text = stockInfo.meta.symbol
         guard let key = stockInfo.timeseries.keys.first else { return  }
         guard let ohlv = stockInfo.timeseries[key] else { return }
         open.text = ohlv.open
+        
+        let keyList = stockInfo.timeseries.keys.sorted(by: {$0 > $1})
+        let values = keyList.compactMap {
+            stockInfo.timeseries[$0]
+        }.compactMap {Double($0.open)}
+        
+        
+        setChart(dataPoints: keyList, values: values)
+    }
+    
+    func setChart(dataPoints: [String], values: [Double]) {
+            
+        var dataEntries: [ChartDataEntry] = []
+        
+        for i in 0..<dataPoints.count {
+            let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
+            dataEntries.append(dataEntry)
+        }
+        
+        
+        let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
+        lineChartDataSet.drawValuesEnabled = false
+        lineChartDataSet.drawCirclesEnabled = false
+        lineChartDataSet.drawIconsEnabled = false
+        lineChartDataSet.lineWidth = 3
+    
+        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+        chartView.data = lineChartData
+        
     }
 }

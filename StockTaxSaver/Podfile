@@ -8,5 +8,6 @@ target 'StockTaxSaver' do
   # Pods for StockTaxSaver
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'Charts'
 
 end

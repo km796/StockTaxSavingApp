@@ -61,7 +61,7 @@ class StockListController: UIViewController {
     }
     
     private func configureTableView() {
-        tableView.rowHeight = 150
+        tableView.rowHeight = 100
         tableView.register(StockListCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
 
