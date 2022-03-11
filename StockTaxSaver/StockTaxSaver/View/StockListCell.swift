@@ -38,7 +38,7 @@ class StockListCell: UITableViewCell {
         open.translatesAutoresizingMaskIntoConstraints = false
         chartView.translatesAutoresizingMaskIntoConstraints = false
         
-        
+        open.textAlignment = .right
         
         chartView.chartDescription?.enabled = false
         chartView.legend.enabled = false
@@ -81,27 +81,33 @@ class StockListCell: UITableViewCell {
         guard let ohlv = stockInfo.timeseries[key] else { return }
         open.text = ohlv.open
         
-        let players = ["Ozil", "Ramsey", "Laca", "Auba", "Xhaka", "Torreira"]
-        let goals = [6, 8, 26, 30, 8, 10]
+        let keyList = stockInfo.timeseries.keys.sorted(by: {$0 > $1})
+        let values = keyList.compactMap {
+            stockInfo.timeseries[$0]
+        }.compactMap {Double($0.open)}
         
         
-        setChart(dataPoints: players, values:goals.map{Double($0)})
+        setChart(dataPoints: keyList, values: values)
     }
     
     func setChart(dataPoints: [String], values: [Double]) {
             
-            var dataEntries: [ChartDataEntry] = []
-            
-            for i in 0..<dataPoints.count {
-                let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
-                dataEntries.append(dataEntry)
-            }
-            
-            
-            let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
-            lineChartDataSet.drawValuesEnabled = false
-            let lineChartData = LineChartData(dataSet: lineChartDataSet)
-            chartView.data = lineChartData
-            
+        var dataEntries: [ChartDataEntry] = []
+        
+        for i in 0..<dataPoints.count {
+            let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
+            dataEntries.append(dataEntry)
         }
+        
+        
+        let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
+        lineChartDataSet.drawValuesEnabled = false
+        lineChartDataSet.drawCirclesEnabled = false
+        lineChartDataSet.drawIconsEnabled = false
+        lineChartDataSet.lineWidth = 3
+    
+        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+        chartView.data = lineChartData
+        
+    }
 }
