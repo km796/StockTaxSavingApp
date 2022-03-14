@@ -10,13 +10,15 @@ import RxSwift
 import RxCocoa
 
 struct APIService {
+
     
-    func fetchStockSearches(with searchQuery: String, completion: @escaping (Result<StockResponse, NetworkError>) -> Void) {
+    func fetchStockSearches(with endpoint: Endpoint, completion: @escaping (Result<SearchResponse, NetworkError>) -> Void) {
         
-        guard let url = URL(string: "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=\(searchQuery)&apikey=\(API_KEY)") else {
+        guard let url = endpoint.url else {
             completion(.failure(.invalidURL))
             return
         }
+        print(url)
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
@@ -25,12 +27,32 @@ struct APIService {
             }
             
             do {
-                let searchResponse = try JSONDecoder().decode(StockResponse.self, from: data)
+                let searchResponse = try JSONDecoder().decode(SearchResponse.self, from: data)
                 completion(.success(searchResponse))
             } catch {
                 completion(.failure(.decodingFailed))
             }
         }.resume()
+    }
+    
+    func fetchStockData(with endpoint: Endpoint,  completion: @escaping (Result<StockPrice, NetworkError>) -> Void) {
+        guard let url = endpoint.url else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(.failure(.requestFailed))
+                return
+            }
+            do {
+                let stockInfo = try JSONDecoder().decode(StockPrice.self, from: data)
+                completion(.success(stockInfo))
+            } catch {
+                completion(.failure(.decodingFailed))
+            }
+        }.resume()
+        
     }
     
     func fetchStockInfo(with symbol: String, completion: @escaping (Result<StockInfo, NetworkError>) -> Void) {
