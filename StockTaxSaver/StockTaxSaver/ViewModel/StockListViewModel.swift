@@ -12,6 +12,7 @@ struct StockListViewModel {
     
     let disposeBag = DisposeBag()
     let stockInfos = PublishSubject<[StockInfo]>()
+    let stockPrices = PublishSubject<[StockPrice]>()
     
     
     /*성공 함수. reduce 함수를 이용해 Observable의 모든 emitted events 들을 array 로 묶어 stockInfos Subject 로 넘겨주는 방식.
@@ -33,6 +34,41 @@ struct StockListViewModel {
         .subscribe(onNext: {silist in
             stockInfos.onNext(silist)
         }).disposed(by: disposeBag)
+    }
+    
+    func getStockPriceList() {
+        
+        let symbolList = SaveService.shared.getList()
+        print(symbolList)
+        let symbols = Observable.from(symbolList)
+        
+        symbols.concatMap{ symbol -> Observable<StockPrice> in
+            let obs:Observable<StockPrice> = getStockPriceRx(symbol: symbol, from: "1572651390", to: "1575243390")
+            return obs
+        }.reduce([]){ agg, si -> [StockPrice] in
+            print(agg)
+            return agg + [si]
+        }
+        .subscribe(onNext: {silist in
+            stockPrices.onNext(silist)
+        }).disposed(by: disposeBag)
+    }
+    
+    func getStockPriceRx(symbol: String, from: String, to: String) -> Observable<StockPrice> {
+        
+        return Observable.create { observer in
+            APIService().fetchStockData(with: .stockPrice(symbol: symbol, from: from, to: to)) { result in
+                switch result {
+                case .failure(let error):
+                    observer.onError(error)
+                case .success(let si):
+                    print(si)
+                    observer.onNext(si)
+                }
+            }
+            
+            return Disposables.create()
+        }
     }
     
     func getStockInfoRx(symbol: String) -> Observable<StockInfo> {

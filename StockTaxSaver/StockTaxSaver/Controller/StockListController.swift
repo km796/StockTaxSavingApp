@@ -30,7 +30,8 @@ class StockListController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.getStockList()
+//        viewModel.getStockList()
+        viewModel.getStockPriceList()
     }
     
     
@@ -59,6 +60,11 @@ class StockListController: UIViewController {
                 index, model, cell in
                 cell.stockInfo = model
             }.disposed(by: disposeBag)
+        
+        viewModel.stockPrices
+            .subscribe(onNext:{ sp in
+                print(sp)
+            }).disposed(by: disposeBag)
     }
     
     private func configureTableView() {
