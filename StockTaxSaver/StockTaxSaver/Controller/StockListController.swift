@@ -38,6 +38,7 @@ class StockListController: UIViewController {
         view.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
+        configureNavigationBar(withTitle: "Stock List", prefersLargeTitles: true)
         configureTableView()
     }
     private func layout() {
