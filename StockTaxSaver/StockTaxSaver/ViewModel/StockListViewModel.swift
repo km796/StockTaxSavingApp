@@ -12,7 +12,7 @@ struct StockListViewModel {
     
     let disposeBag = DisposeBag()
     let stockInfos = PublishSubject<[StockInfo]>()
-    let stockPrices = PublishSubject<[StockPrice]>()
+    let stockPrices = PublishSubject<[StockPriceWithSymbol]>()
     
     
     /*성공 함수. reduce 함수를 이용해 Observable의 모든 emitted events 들을 array 로 묶어 stockInfos Subject 로 넘겨주는 방식.
@@ -28,7 +28,6 @@ struct StockListViewModel {
             let obs:Observable<StockInfo> = getStockInfoRx(symbol: symbol)
             return obs
         }.reduce([]){ agg, si -> [StockInfo] in
-            print(agg)
             return agg + [si]
         }
         .subscribe(onNext: {silist in
@@ -42,11 +41,11 @@ struct StockListViewModel {
         print(symbolList)
         let symbols = Observable.from(symbolList)
         
-        symbols.concatMap{ symbol -> Observable<StockPrice> in
-            let obs:Observable<StockPrice> = getStockPriceRx(symbol: symbol, from: "1572651390", to: "1575243390")
+        symbols.concatMap{ symbol -> Observable<StockPriceWithSymbol> in
+            let obs:Observable<StockPriceWithSymbol> = getStockPriceRx(symbol: symbol, from: "1572651390", to: "1575243390")
+            print(obs)
             return obs
-        }.reduce([]){ agg, si -> [StockPrice] in
-            print(agg)
+        }.reduce([]){ agg, si -> [StockPriceWithSymbol] in
             return agg + [si]
         }
         .subscribe(onNext: {silist in
@@ -54,7 +53,7 @@ struct StockListViewModel {
         }).disposed(by: disposeBag)
     }
     
-    func getStockPriceRx(symbol: String, from: String, to: String) -> Observable<StockPrice> {
+    func getStockPriceRx(symbol: String, from: String, to: String) -> Observable<StockPriceWithSymbol> {
         
         return Observable.create { observer in
             APIService().fetchStockData(with: .stockPrice(symbol: symbol, from: from, to: to)) { result in
@@ -62,8 +61,8 @@ struct StockListViewModel {
                 case .failure(let error):
                     observer.onError(error)
                 case .success(let si):
-                    print(si)
-                    observer.onNext(si)
+                    observer.onNext(StockPriceWithSymbol(symbol: symbol, stockPrice: si))
+                    observer.onCompleted()
                 }
             }
             

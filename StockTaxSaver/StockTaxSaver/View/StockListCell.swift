@@ -11,7 +11,13 @@ import Charts
 
 class StockListCell: UITableViewCell {
     
-    var stockInfo: StockInfo? {
+//    var stockInfo: StockInfo? {
+//        didSet {
+//            configure()
+//        }
+//    }
+//
+    var stockPrice: StockPriceWithSymbol? {
         didSet {
             configure()
         }
@@ -72,29 +78,42 @@ class StockListCell: UITableViewCell {
     }
     
     private func configure() {
-        guard let stockInfo = stockInfo else {
+//        guard let stockInfo = stockInfo else {
+//            return
+//        }
+//
+//        symbol.text = stockInfo.meta.symbol
+//        guard let key = stockInfo.timeseries.keys.first else { return  }
+//        guard let ohlv = stockInfo.timeseries[key] else { return }
+//        open.text = ohlv.open
+//
+//        let keyList = stockInfo.timeseries.keys.sorted(by: {$0 > $1})
+//        let values = keyList.compactMap {
+//            stockInfo.timeseries[$0]
+//        }.compactMap {Double($0.open)}
+//
+//
+//        setChart(dataPoints: keyList, values: values)
+        
+        guard let stockPrice = stockPrice else {
             return
         }
+        let symbolText = stockPrice.symbol
+        let priceList = stockPrice.stockPrice.c
         
-        symbol.text = stockInfo.meta.symbol
-        guard let key = stockInfo.timeseries.keys.first else { return  }
-        guard let ohlv = stockInfo.timeseries[key] else { return }
-        open.text = ohlv.open
+        symbol.text = symbolText
+        if let price = priceList.first {
+            open.text = "\(price)"
+        }
         
-        let keyList = stockInfo.timeseries.keys.sorted(by: {$0 > $1})
-        let values = keyList.compactMap {
-            stockInfo.timeseries[$0]
-        }.compactMap {Double($0.open)}
-        
-        
-        setChart(dataPoints: keyList, values: values)
+        setChart(dataPoints: priceList.count, values: priceList)
     }
     
-    func setChart(dataPoints: [String], values: [Double]) {
+    func setChart(dataPoints: Int, values: [Double]) {
             
         var dataEntries: [ChartDataEntry] = []
         
-        for i in 0..<dataPoints.count {
+        for i in 0..<dataPoints {
             let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
             dataEntries.append(dataEntry)
         }
