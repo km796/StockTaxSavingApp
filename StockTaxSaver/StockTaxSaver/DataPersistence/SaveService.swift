@@ -26,6 +26,14 @@ struct SaveService {
         return userDefaults.stringArray(forKey: symbols_key) ?? []
     }
     
+    func addDescription(for symbol: String, description: String) {
+        userDefaults.set(description, forKey: symbol)
+    }
+    
+    func getDescription(for symbol: String) -> String {
+        return userDefaults.string(forKey: symbol) ?? ""
+    }
+    
     private init() {
         
     }

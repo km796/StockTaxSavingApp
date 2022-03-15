@@ -38,6 +38,7 @@ class AddStockController: UIViewController {
     
     
     private func style(){
+        configureNavigationBar(withTitle: "Add Your Stocks", prefersLargeTitles: false)
         view.backgroundColor = .white
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -79,6 +80,7 @@ class AddStockController: UIViewController {
         tableView.rx.modelSelected(SearchResult.self)
             .subscribe(onNext: { [weak self] searchResult in
                 SaveService.shared.addToList(symbol: searchResult.symbol)
+                SaveService.shared.addDescription(for: searchResult.symbol, description: searchResult.description)
                 self?.tabBarController?.selectedIndex = 0
             }).disposed(by: disposeBag)
     }

@@ -11,13 +11,7 @@ import Charts
 
 class StockListCell: UITableViewCell {
     
-//    var stockInfo: StockInfo? {
-//        didSet {
-//            configure()
-//        }
-//    }
-//
-    var stockPrice: StockPriceWithSymbol? {
+    var stockPrice: StockPriceWithDetails? {
         didSet {
             configure()
         }
@@ -26,6 +20,10 @@ class StockListCell: UITableViewCell {
     let symbol = UILabel()
     let name = UILabel()
     let open = UILabel()
+    let diff = UILabel()
+    
+    let left = UIStackView()
+    let right = UIStackView()
     
     let chartView = LineChartView()
     
@@ -40,9 +38,18 @@ class StockListCell: UITableViewCell {
     }
     
     private func styleViews() {
-        symbol.translatesAutoresizingMaskIntoConstraints = false
-        open.translatesAutoresizingMaskIntoConstraints = false
+        left.translatesAutoresizingMaskIntoConstraints = false
+        right.translatesAutoresizingMaskIntoConstraints = false
         chartView.translatesAutoresizingMaskIntoConstraints = false
+        
+        left.axis = .vertical
+        right.axis = .vertical
+        
+        diff.textAlignment = .right
+        
+        name.font = .systemFont(ofSize: 10)
+        name.textColor = .systemGray
+        name.numberOfLines = 2
         
         open.textAlignment = .right
         
@@ -57,52 +64,49 @@ class StockListCell: UITableViewCell {
     }
     
     private func layout() {
-        addSubview(symbol)
-        addSubview(open)
+        left.addArrangedSubview(symbol)
+        left.addArrangedSubview(name)
+        
+        right.addArrangedSubview(open)
+        right.addArrangedSubview(diff)
+
+        
+        addSubview(left)
+        addSubview(right)
         addSubview(chartView)
         
         NSLayoutConstraint.activate([
-            symbol.centerYAnchor.constraint(equalTo: centerYAnchor),
-            symbol.leftAnchor.constraint(equalTo: leftAnchor, constant: 4),
-            symbol.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
+            left.centerYAnchor.constraint(equalTo: centerYAnchor),
+            left.leftAnchor.constraint(equalTo: leftAnchor, constant: 4),
+            left.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
             
-            open.centerYAnchor.constraint(equalTo: centerYAnchor),
-            open.rightAnchor.constraint(equalTo: rightAnchor, constant: -4),
-            open.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
+            right.centerYAnchor.constraint(equalTo: centerYAnchor),
+            right.rightAnchor.constraint(equalTo: rightAnchor, constant: -4),
+            right.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
             
             chartView.centerXAnchor.constraint(equalTo: centerXAnchor),
             chartView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
-            chartView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            chartView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8)
+            chartView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
+            chartView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5)
         ])
     }
     
     private func configure() {
-//        guard let stockInfo = stockInfo else {
-//            return
-//        }
-//
-//        symbol.text = stockInfo.meta.symbol
-//        guard let key = stockInfo.timeseries.keys.first else { return  }
-//        guard let ohlv = stockInfo.timeseries[key] else { return }
-//        open.text = ohlv.open
-//
-//        let keyList = stockInfo.timeseries.keys.sorted(by: {$0 > $1})
-//        let values = keyList.compactMap {
-//            stockInfo.timeseries[$0]
-//        }.compactMap {Double($0.open)}
-//
-//
-//        setChart(dataPoints: keyList, values: values)
         
         guard let stockPrice = stockPrice else {
             return
         }
+        let viewModel = StockViewModel(stock: stockPrice)
+        
         let symbolText = stockPrice.symbol
+        let nameText = stockPrice.description
         let priceList = stockPrice.stockPrice.c
         
         symbol.text = symbolText
-        if let price = priceList.first {
+        name.text = nameText
+        diff.text = "\(viewModel.diff)"
+        diff.textColor = viewModel.diffColor
+        if let price = priceList.last {
             open.text = "\(price)"
         }
         

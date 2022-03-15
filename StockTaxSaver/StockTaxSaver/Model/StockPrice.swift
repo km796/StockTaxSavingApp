@@ -12,7 +12,8 @@ struct StockPrice: Decodable {
     let c: [Double]
 }
 
-struct StockPriceWithSymbol {
+struct StockPriceWithDetails {
     let symbol: String
+    let description: String
     let stockPrice: StockPrice
 }

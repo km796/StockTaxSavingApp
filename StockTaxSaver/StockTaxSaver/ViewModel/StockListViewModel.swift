@@ -12,7 +12,7 @@ struct StockListViewModel {
     
     let disposeBag = DisposeBag()
     let stockInfos = PublishSubject<[StockInfo]>()
-    let stockPrices = PublishSubject<[StockPriceWithSymbol]>()
+    let stockPrices = PublishSubject<[StockPriceWithDetails]>()
     
     
     /*성공 함수. reduce 함수를 이용해 Observable의 모든 emitted events 들을 array 로 묶어 stockInfos Subject 로 넘겨주는 방식.
@@ -41,11 +41,10 @@ struct StockListViewModel {
         print(symbolList)
         let symbols = Observable.from(symbolList)
         
-        symbols.concatMap{ symbol -> Observable<StockPriceWithSymbol> in
-            let obs:Observable<StockPriceWithSymbol> = getStockPriceRx(symbol: symbol, from: "1572651390", to: "1575243390")
-            print(obs)
+        symbols.concatMap{ symbol -> Observable<StockPriceWithDetails> in
+            let obs:Observable<StockPriceWithDetails> = getStockPriceRx(symbol: symbol, from: "1646431647", to: "1647328102")
             return obs
-        }.reduce([]){ agg, si -> [StockPriceWithSymbol] in
+        }.reduce([]){ agg, si -> [StockPriceWithDetails] in
             return agg + [si]
         }
         .subscribe(onNext: {silist in
@@ -53,15 +52,15 @@ struct StockListViewModel {
         }).disposed(by: disposeBag)
     }
     
-    func getStockPriceRx(symbol: String, from: String, to: String) -> Observable<StockPriceWithSymbol> {
-        
+    func getStockPriceRx(symbol: String, from: String, to: String) -> Observable<StockPriceWithDetails> {
         return Observable.create { observer in
             APIService().fetchStockData(with: .stockPrice(symbol: symbol, from: from, to: to)) { result in
                 switch result {
                 case .failure(let error):
                     observer.onError(error)
                 case .success(let si):
-                    observer.onNext(StockPriceWithSymbol(symbol: symbol, stockPrice: si))
+                    let desc = SaveService.shared.getDescription(for: symbol)
+                    observer.onNext(StockPriceWithDetails(symbol: symbol, description: desc, stockPrice: si))
                     observer.onCompleted()
                 }
             }

@@ -41,8 +41,7 @@ extension Endpoint {
         components.path = path
         let queryItemsWithKey = queryItems + [URLQueryItem(name: "token", value: API_KEY)]
         components.queryItems = queryItemsWithKey
-        
-        print(components.url)
+    
         return components.url
     }
 }
