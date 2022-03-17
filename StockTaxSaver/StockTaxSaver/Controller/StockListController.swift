@@ -9,10 +9,16 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class StockListController: UIViewController {
     
+    typealias StockDetailsSectionModel = AnimatableSectionModel<String, StockPriceWithDetails>
+    
+    var dataSource: RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>!
+    
     let tableView = UITableView()
+    private var editBarButton: UIBarButtonItem!
     
     let viewModel = StockListViewModel()
     
@@ -42,6 +48,8 @@ class StockListController: UIViewController {
         configureTableView()
     }
     private func layout() {
+        editBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+        navigationItem.rightBarButtonItems = [editBarButton]
         
         view.addSubview(tableView)
         
@@ -54,22 +62,62 @@ class StockListController: UIViewController {
     }
     
     private func bind() {
-//        viewModel.stockInfos
-//            .bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: StockListCell.self)){
-//                index, model, cell in
-//                cell.stockInfo = model
-//            }.disposed(by: disposeBag)
-        
+        bindNavigationBar()
         viewModel.stockPrices
-            .bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: StockListCell.self)) {
-                index, model, cell in
-                cell.stockPrice = model
-            }.disposed(by: disposeBag)
+            .map { [StockDetailsSectionModel(model:"", items: $0)]}
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
     }
     
     private func configureTableView() {
         tableView.rowHeight = 100
         tableView.register(StockListCell.self, forCellReuseIdentifier: reuseIdentifier)
+        setUpDataSource()
+        
+        
+    }
+    
+    private func setUpDataSource() {
+        dataSource = RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>(
+            animationConfiguration: AnimationConfiguration(insertAnimation: .right, reloadAnimation: .bottom, deleteAnimation: .left),
+            configureCell: configureCell,
+            canEditRowAtIndexPath: canEditRowAtIndexPath,
+            canMoveRowAtIndexPath: canMoveRowAtIndexPath
+        )
     }
 
+    private func bindNavigationBar() {
+        editBarButton.rx.tap.asDriver()
+            .map { [unowned self] in self.tableView.isEditing }
+            .drive(onNext: { [unowned self] result in self.tableView.setEditing(!result, animated: true) })
+            .disposed(by: disposeBag)
+    }
+
+
+}
+
+extension StockListController {
+    private var configureCell: RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>.ConfigureCell {
+        return { _, tableView, indexPath, model in
+            var cell: StockListCell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! StockListCell
+            cell.stockPrice = model
+            return cell
+        }
+    }
+    
+    private var canEditRowAtIndexPath: RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>.CanEditRowAtIndexPath {
+        return { [unowned self] _, _ in
+            if self.tableView.isEditing {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
+    private var canMoveRowAtIndexPath: RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>.CanMoveRowAtIndexPath {
+        return { _, _ in
+            return true
+        }
+    }
 }
