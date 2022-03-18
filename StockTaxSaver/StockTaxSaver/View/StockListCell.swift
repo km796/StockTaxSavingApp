@@ -104,7 +104,7 @@ class StockListCell: UITableViewCell {
         
         symbol.text = symbolText
         name.text = nameText
-        diff.text = "\(viewModel.diff)"
+        diff.text = "\(viewModel.diffWithSign)"
         diff.textColor = viewModel.diffColor
         if let price = priceList.last {
             open.text = "\(price)"

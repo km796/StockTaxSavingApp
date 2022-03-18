@@ -26,7 +26,7 @@ extension Endpoint {
             path: "/api/v1/stock/candle",
             queryItems: [
                 URLQueryItem(name: "symbol", value: symbol),
-                URLQueryItem(name: "resolution", value: "D"),
+                URLQueryItem(name: "resolution", value: "30"),
                 URLQueryItem(name: "from", value: from ),
                 URLQueryItem(name: "to", value: to)
             ])

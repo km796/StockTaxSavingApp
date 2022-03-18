@@ -42,7 +42,7 @@ struct StockListViewModel {
         let symbols = Observable.from(symbolList)
         
         symbols.concatMap{ symbol -> Observable<StockPriceWithDetails> in
-            let obs:Observable<StockPriceWithDetails> = getStockPriceRx(symbol: symbol, from: "1646431647", to: "1647328102")
+            let obs:Observable<StockPriceWithDetails> = getStockPriceRx(symbol: symbol, from: "\(DateManager().yesterdayUnix)", to: "\(DateManager().currentUnix)")
             return obs
         }.catchAndReturn(StockPriceWithDetails(symbol: "", description: "", stockPrice: StockPrice(c: [])))
         .reduce([]){ agg, si -> [StockPriceWithDetails] in
