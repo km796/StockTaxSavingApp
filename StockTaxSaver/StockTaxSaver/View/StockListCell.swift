@@ -71,23 +71,25 @@ class StockListCell: UITableViewCell {
         right.addArrangedSubview(diff)
 
         
-        addSubview(left)
-        addSubview(right)
-        addSubview(chartView)
+        contentView.addSubview(left)
+        contentView.addSubview(right)
+        contentView.addSubview(chartView)
         
         NSLayoutConstraint.activate([
-            left.centerYAnchor.constraint(equalTo: centerYAnchor),
-            left.leftAnchor.constraint(equalTo: leftAnchor, constant: 4),
-            left.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
+            left.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            left.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+            left.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
             
-            right.centerYAnchor.constraint(equalTo: centerYAnchor),
-            right.rightAnchor.constraint(equalTo: rightAnchor, constant: -4),
-            right.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
+            right.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            right.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            right.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
             
-            chartView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            chartView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
-            chartView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3),
-            chartView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5)
+            
+            chartView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            chartView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            chartView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
+            chartView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.5),
+            
         ])
     }
     
