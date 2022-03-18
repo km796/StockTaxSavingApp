@@ -44,7 +44,11 @@ struct StockListViewModel {
         symbols.concatMap{ symbol -> Observable<StockPriceWithDetails> in
             let obs:Observable<StockPriceWithDetails> = getStockPriceRx(symbol: symbol, from: "1646431647", to: "1647328102")
             return obs
-        }.reduce([]){ agg, si -> [StockPriceWithDetails] in
+        }.catchAndReturn(StockPriceWithDetails(symbol: "", description: "", stockPrice: StockPrice(c: [])))
+        .reduce([]){ agg, si -> [StockPriceWithDetails] in
+            if si.stockPrice.c.isEmpty {
+                return agg
+            }
             return agg + [si]
         }
         .subscribe(onNext: {silist in
