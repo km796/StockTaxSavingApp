@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B1FF22F27E07B370042B94D /* StockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1FF22E27E07B370042B94D /* StockViewModel.swift */; };
 		0B1FF23127E080F80042B94D /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1FF23027E080F80042B94D /* Double+Extensions.swift */; };
+		0B1FF23527E466A60042B94D /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1FF23427E466A60042B94D /* DateManager.swift */; };
 		0B42124B27CC91E0007345A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42124A27CC91E0007345A3 /* AppDelegate.swift */; };
 		0B42125427CC91E2007345A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B42125327CC91E2007345A3 /* Assets.xcassets */; };
 		0B42125727CC91E2007345A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B42125527CC91E2007345A3 /* LaunchScreen.storyboard */; };
@@ -36,6 +37,7 @@
 /* Begin PBXFileReference section */
 		0B1FF22E27E07B370042B94D /* StockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModel.swift; sourceTree = "<group>"; };
 		0B1FF23027E080F80042B94D /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
+		0B1FF23427E466A60042B94D /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		0B42124727CC91E0007345A3 /* StockTaxSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockTaxSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B42124A27CC91E0007345A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B42125327CC91E2007345A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				0B42126127D041D2007345A3 /* UIViewController+Extentions.swift */,
 				0B42127A27D0A7CD007345A3 /* Keys.swift */,
 				0B1FF23027E080F80042B94D /* Double+Extensions.swift */,
+				0B1FF23427E466A60042B94D /* DateManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				0B42126927D04991007345A3 /* CalculatorController.swift in Sources */,
 				0B42126C27D06A1D007345A3 /* StockResponse.swift in Sources */,
 				0B42128A27D5F028007345A3 /* StockInfo.swift in Sources */,
+				0B1FF23527E466A60042B94D /* DateManager.swift in Sources */,
 				0B42125F27D04127007345A3 /* MainViewController.swift in Sources */,
 				0B42124B27CC91E0007345A3 /* AppDelegate.swift in Sources */,
 				0B1FF23127E080F80042B94D /* Double+Extensions.swift in Sources */,
@@ -474,7 +478,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J29V83C377;
+				DEVELOPMENT_TEAM = Y72Y7XC8NM;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StockTaxSaver/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -503,7 +507,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J29V83C377;
+				DEVELOPMENT_TEAM = Y72Y7XC8NM;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StockTaxSaver/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

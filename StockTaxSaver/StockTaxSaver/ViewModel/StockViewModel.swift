@@ -14,13 +14,16 @@ struct StockViewModel {
     
     var diff: Double {
         let prices = stock.stockPrice.c
-        let slice = prices.suffix(2)
-        let last2 = Array(slice)
-        let today = last2[1]
-        let yesterday = last2[0]
+        guard let today = prices.last, let yesterday = prices.first else {
+            return 0.0
+        }
         let d = (today-yesterday)/yesterday * 100
         let rounded = d.rounded(toPlaces: 2)
         return rounded
+    }
+    
+    var diffWithSign: String {
+        return diff < 0 ? "\(diff)%": "+\(diff)%"
     }
     
     var diffColor: UIColor {

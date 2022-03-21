@@ -99,7 +99,7 @@ class StockListController: UIViewController {
 extension StockListController {
     private var configureCell: RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>.ConfigureCell {
         return { _, tableView, indexPath, model in
-            var cell: StockListCell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! StockListCell
+            let cell: StockListCell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! StockListCell
             cell.stockPrice = model
             return cell
         }
