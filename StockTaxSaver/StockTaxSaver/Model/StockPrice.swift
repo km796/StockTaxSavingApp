@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RxDataSources
 
 struct StockPrice: Decodable {
     
@@ -21,22 +20,4 @@ struct StockPriceWithDetails  {
     let symbol: String
     let description: String
     let stockPrice: StockPrice
-}
-
-extension StockPriceWithDetails: Equatable {
-    static func == (lhs: StockPriceWithDetails, rhs: StockPriceWithDetails) -> Bool {
-        return lhs.symbol == rhs.symbol &&
-        lhs.description == rhs.description &&
-        lhs.stockPrice == rhs.stockPrice
-    }
-    
-}
-
-
-extension StockPriceWithDetails : IdentifiableType {
-    var identity: String {
-        return self.description
-    }
-    
-    typealias Identity = String
 }
