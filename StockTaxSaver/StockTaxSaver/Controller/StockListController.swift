@@ -9,13 +9,10 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
-import RxDataSources
 
 class StockListController: UIViewController {
     
-    typealias StockDetailsSectionModel = AnimatableSectionModel<String, StockPriceWithDetails>
-    
-    var dataSource: RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>!
+    var stockPricesList = [StockPriceWithDetails]()
     
     let tableView = UITableView()
     private var editBarButton: UIBarButtonItem!
@@ -64,26 +61,21 @@ class StockListController: UIViewController {
     private func bind() {
         bindNavigationBar()
         viewModel.stockPrices
-            .map { [StockDetailsSectionModel(model:"", items: $0)]}
-            .bind(to: tableView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBag)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                spList in
+                self.stockPricesList = spList
+                self.tableView.reloadData()
+            }).disposed(by: disposeBag)
     }
     
     private func configureTableView() {
         tableView.rowHeight = 100
         tableView.register(StockListCell.self, forCellReuseIdentifier: reuseIdentifier)
-        setUpDataSource()
+        tableView.delegate = self
+        tableView.dataSource = self
         
         
-    }
-    
-    private func setUpDataSource() {
-        dataSource = RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>(
-            animationConfiguration: AnimationConfiguration(insertAnimation: .right, reloadAnimation: .bottom, deleteAnimation: .left),
-            configureCell: configureCell,
-            canEditRowAtIndexPath: canEditRowAtIndexPath,
-            canMoveRowAtIndexPath: canMoveRowAtIndexPath
-        )
     }
 
     private func bindNavigationBar() {
@@ -96,28 +88,14 @@ class StockListController: UIViewController {
 
 }
 
-extension StockListController {
-    private var configureCell: RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>.ConfigureCell {
-        return { _, tableView, indexPath, model in
-            let cell: StockListCell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! StockListCell
-            cell.stockPrice = model
-            return cell
-        }
+extension StockListController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return stockPricesList.count
     }
     
-    private var canEditRowAtIndexPath: RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>.CanEditRowAtIndexPath {
-        return { [unowned self] _, _ in
-            if self.tableView.isEditing {
-                return true
-            } else {
-                return false
-            }
-        }
-    }
-    
-    private var canMoveRowAtIndexPath: RxTableViewSectionedAnimatedDataSource<StockDetailsSectionModel>.CanMoveRowAtIndexPath {
-        return { _, _ in
-            return true
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! StockListCell
+        cell.stockPrice = stockPricesList[indexPath.row]
+        return cell
     }
 }
