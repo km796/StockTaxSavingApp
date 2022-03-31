@@ -31,11 +31,11 @@ class StockListController: UIViewController {
         bind()
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.getStockPriceList()
     }
-    
     
     private func style() {
         view.backgroundColor = .white
@@ -97,5 +97,26 @@ extension StockListController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! StockListCell
         cell.stockPrice = stockPricesList[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        stockPricesList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        viewModel.reorderSymbols(source: sourceIndexPath.row, destination: destinationIndexPath.row)
+    }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            stockPricesList.remove(at: indexPath.row)
+            viewModel.removeSymbols(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
 }

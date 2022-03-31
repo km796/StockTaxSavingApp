@@ -73,6 +73,14 @@ struct StockListViewModel {
         }
     }
     
+    func reorderSymbols(source: Int, destination: Int) {
+        SaveService.shared.replaceList(source: source, destination: destination)
+    }
+    
+    func removeSymbols(at index: Int) {
+        SaveService.shared.remove(at: index)
+    }
+    
     func getStockInfoRx(symbol: String) -> Observable<StockInfo> {
         return Observable.create { observer in
             APIService().fetchStockInfo(with: symbol) { result in
