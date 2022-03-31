@@ -11,14 +11,14 @@ import RxCocoa
 
 struct SearchResultViewModel {
     
-    let searchResult = PublishSubject<[SearchResult]>()
+    let searchResult = PublishSubject<[StockSearchResult]>()
     
     
     func getSearchResult(stockName: String) {
         APIService().fetchStockSearches(with: .search(symbol: stockName)) { result in
             switch result {
             case .success(let searchResponse):
-                searchResult.onNext(searchResponse.result)
+                searchResult.onNext(searchResponse.bestMatches)
             case.failure(let error):
                 print(error)
             }

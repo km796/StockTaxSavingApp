@@ -9,11 +9,19 @@ import Foundation
 
 struct SearchResponse:Decodable {
     
-    let count: Int
-    let result: [SearchResult]
+    let bestMatches: [StockSearchResult]
 }
 
-struct SearchResult: Decodable {
-    let description: String
+struct StockSearchResult: Decodable {
+    
+    let name: String
     let symbol: String
+    let currency: String
+    
+    enum CodingKeys: String, CodingKey {
+        case symbol = "1. symbol"
+        case name = "2. name"
+        case currency = "8. currency"
+    }
 }
+

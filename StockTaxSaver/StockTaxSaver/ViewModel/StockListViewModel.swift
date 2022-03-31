@@ -53,6 +53,9 @@ struct StockListViewModel {
         }
         .subscribe(onNext: {silist in
             stockPrices.onNext(silist)
+        },
+        onError: { error in
+            print(error)
         }).disposed(by: disposeBag)
     }
     
@@ -62,6 +65,7 @@ struct StockListViewModel {
                 switch result {
                 case .failure(let error):
                     observer.onError(error)
+                    observer.onCompleted()
                 case .success(let si):
                     let desc = SaveService.shared.getDescription(for: symbol)
                     observer.onNext(StockPriceWithDetails(symbol: symbol, description: desc, stockPrice: si))

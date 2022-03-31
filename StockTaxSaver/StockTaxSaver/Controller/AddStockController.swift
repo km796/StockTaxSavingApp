@@ -77,10 +77,10 @@ class AddStockController: UIViewController {
                 cell.searchResult = model
             }.disposed(by: disposeBag)
         
-        tableView.rx.modelSelected(SearchResult.self)
+        tableView.rx.modelSelected(StockSearchResult.self)
             .subscribe(onNext: { [weak self] searchResult in
                 SaveService.shared.addToList(symbol: searchResult.symbol)
-                SaveService.shared.addDescription(for: searchResult.symbol, description: searchResult.description)
+                SaveService.shared.addDescription(for: searchResult.symbol, description: searchResult.name)
                 self?.tabBarController?.selectedIndex = 0
             }).disposed(by: disposeBag)
     }
