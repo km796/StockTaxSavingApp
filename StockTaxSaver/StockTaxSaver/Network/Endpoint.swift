@@ -10,15 +10,18 @@ import Foundation
 struct Endpoint {
     let path: String
     let queryItems: [URLQueryItem]
+    let host: String
 }
 
 extension Endpoint {
     static func search(symbol: String) -> Endpoint {
         return Endpoint(
-            path: "/api/v1/search",
+            path: "/query",
             queryItems: [
-                URLQueryItem(name: "q", value: symbol)
-            ])
+                URLQueryItem(name: "function", value: "SYMBOL_SEARCH"),
+                URLQueryItem(name: "keywords", value: symbol),
+                URLQueryItem(name: "apikey", value: searchAPI_KEY)
+            ], host: "alphavantage.co")
     }
     
     static func stockPrice(symbol: String, from:String, to:String)->Endpoint{
@@ -28,8 +31,9 @@ extension Endpoint {
                 URLQueryItem(name: "symbol", value: symbol),
                 URLQueryItem(name: "resolution", value: "30"),
                 URLQueryItem(name: "from", value: from ),
-                URLQueryItem(name: "to", value: to)
-            ])
+                URLQueryItem(name: "to", value: to),
+                URLQueryItem(name: "token", value: API_KEY)
+            ], host: "finnhub.io")
     }
 }
 
@@ -37,10 +41,9 @@ extension Endpoint {
     var url: URL? {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "finnhub.io"
+        components.host = host
         components.path = path
-        let queryItemsWithKey = queryItems + [URLQueryItem(name: "token", value: API_KEY)]
-        components.queryItems = queryItemsWithKey
+        components.queryItems = queryItems
     
         return components.url
     }

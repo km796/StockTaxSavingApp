@@ -22,6 +22,25 @@ struct SaveService {
         userDefaults.set(symbols, forKey: symbols_key)
     }
     
+    func replaceList(source: Int, destination: Int) {
+        var symbols = userDefaults.stringArray(forKey: symbols_key) ?? []
+        if source<0 || source>=symbols.count ||  destination<0 || destination>=symbols.count {
+            return
+        }
+        symbols.swapAt(source, destination)
+        userDefaults.set(symbols, forKey: symbols_key)
+    }
+    
+    func remove(at index: Int) {
+        var symbols = userDefaults.stringArray(forKey: symbols_key) ?? []
+        if index<0 || index>=symbols.count {
+            return
+        }
+        
+        symbols.remove(at: index)
+        userDefaults.set(symbols, forKey: symbols_key)
+    }
+    
     func getList() -> [String] {
         return userDefaults.stringArray(forKey: symbols_key) ?? []
     }

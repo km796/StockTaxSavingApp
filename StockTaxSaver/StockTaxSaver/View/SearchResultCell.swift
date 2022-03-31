@@ -10,7 +10,7 @@ import UIKit
 
 class SearchResultCell: UITableViewCell {
     
-    var searchResult: SearchResult? {
+    var searchResult: StockSearchResult? {
         didSet {
             configure()
         }
@@ -73,7 +73,7 @@ class SearchResultCell: UITableViewCell {
             return
         }
 
-        name.text = searchResult.description
+        name.text = searchResult.name
         symbol.text = searchResult.symbol
     }
 }

@@ -18,7 +18,6 @@
 		0B42126527D04925007345A3 /* StockListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42126427D04925007345A3 /* StockListController.swift */; };
 		0B42126727D0497A007345A3 /* AddStockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42126627D0497A007345A3 /* AddStockController.swift */; };
 		0B42126927D04991007345A3 /* CalculatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42126827D04991007345A3 /* CalculatorController.swift */; };
-		0B42126C27D06A1D007345A3 /* StockResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42126B27D06A1D007345A3 /* StockResponse.swift */; };
 		0B42127127D083BF007345A3 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42127027D083BF007345A3 /* APIService.swift */; };
 		0B42127527D09D76007345A3 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42127427D09D76007345A3 /* NetworkError.swift */; };
 		0B42127B27D0A7CD007345A3 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42127A27D0A7CD007345A3 /* Keys.swift */; };
@@ -48,7 +47,6 @@
 		0B42126427D04925007345A3 /* StockListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockListController.swift; sourceTree = "<group>"; };
 		0B42126627D0497A007345A3 /* AddStockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStockController.swift; sourceTree = "<group>"; };
 		0B42126827D04991007345A3 /* CalculatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorController.swift; sourceTree = "<group>"; };
-		0B42126B27D06A1D007345A3 /* StockResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockResponse.swift; sourceTree = "<group>"; };
 		0B42127027D083BF007345A3 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		0B42127427D09D76007345A3 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		0B42127A27D0A7CD007345A3 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 		0B42126A27D0698A007345A3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0B42126B27D06A1D007345A3 /* StockResponse.swift */,
 				0B42128927D5F028007345A3 /* StockInfo.swift */,
 				0B5063DF27DEE5AD00B5B18E /* SearchResponse.swift */,
 				0B5063E127DEEE7C00B5B18E /* StockPrice.swift */,
@@ -320,7 +317,6 @@
 				0B42127E27D0B9D9007345A3 /* SearchResultViewModel.swift in Sources */,
 				0B42127127D083BF007345A3 /* APIService.swift in Sources */,
 				0B42126927D04991007345A3 /* CalculatorController.swift in Sources */,
-				0B42126C27D06A1D007345A3 /* StockResponse.swift in Sources */,
 				0B42128A27D5F028007345A3 /* StockInfo.swift in Sources */,
 				0B1FF23527E466A60042B94D /* DateManager.swift in Sources */,
 				0B42125F27D04127007345A3 /* MainViewController.swift in Sources */,
