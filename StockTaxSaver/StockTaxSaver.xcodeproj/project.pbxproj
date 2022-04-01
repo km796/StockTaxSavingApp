@@ -30,6 +30,7 @@
 		0B5063E027DEE5AD00B5B18E /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5063DF27DEE5AD00B5B18E /* SearchResponse.swift */; };
 		0B5063E227DEEE7D00B5B18E /* StockPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5063E127DEEE7C00B5B18E /* StockPrice.swift */; };
 		0B5063E627DF0A8B00B5B18E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5063E527DF0A8B00B5B18E /* Endpoint.swift */; };
+		0B83CF3227F59EEA0089B418 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3127F59EEA0089B418 /* LogoView.swift */; };
 		C413412AB5E8DBAA9A42E0A9 /* Pods_StockTaxSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF54B6E6263814B5B7F7933F /* Pods_StockTaxSaver.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		0B5063DF27DEE5AD00B5B18E /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		0B5063E127DEEE7C00B5B18E /* StockPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPrice.swift; sourceTree = "<group>"; };
 		0B5063E527DF0A8B00B5B18E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		0B83CF3127F59EEA0089B418 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		1DBD2812C7F7D7AC39AA208C /* Pods-StockTaxSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockTaxSaver.debug.xcconfig"; path = "Target Support Files/Pods-StockTaxSaver/Pods-StockTaxSaver.debug.xcconfig"; sourceTree = "<group>"; };
 		8732CC17FF658FE6E4FB6F71 /* Pods-StockTaxSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockTaxSaver.release.xcconfig"; path = "Target Support Files/Pods-StockTaxSaver/Pods-StockTaxSaver.release.xcconfig"; sourceTree = "<group>"; };
 		CF54B6E6263814B5B7F7933F /* Pods_StockTaxSaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StockTaxSaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,6 +171,7 @@
 			children = (
 				0B42127F27D1B64B007345A3 /* SearchResultCell.swift */,
 				0B42128D27D71ABD007345A3 /* StockListCell.swift */,
+				0B83CF3127F59EEA0089B418 /* LogoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				0B42128627D5B371007345A3 /* SaveService.swift in Sources */,
 				0B42126527D04925007345A3 /* StockListController.swift in Sources */,
 				0B1FF22F27E07B370042B94D /* StockViewModel.swift in Sources */,
+				0B83CF3227F59EEA0089B418 /* LogoView.swift in Sources */,
 				0B42126227D041D2007345A3 /* UIViewController+Extentions.swift in Sources */,
 				0B5063E027DEE5AD00B5B18E /* SearchResponse.swift in Sources */,
 				0B5063E627DF0A8B00B5B18E /* Endpoint.swift in Sources */,

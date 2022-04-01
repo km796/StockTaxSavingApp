@@ -14,6 +14,6 @@ struct DateManager {
     }
     
     var yesterdayUnix: Int {
-        return currentUnix - 86400 ?? 0
+        return currentUnix - 86400
     }
 }

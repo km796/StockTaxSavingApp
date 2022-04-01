@@ -24,7 +24,7 @@ extension UIViewController {
         tabBarItem = UITabBarItem(title: title, image: image, tag: 0)
     }
     
-    func configureNavigationBar(withTitle title: String, prefersLargeTitles: Bool) {
+    func configureNavigationBar(withTitle title: String?, prefersLargeTitles: Bool) {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -33,13 +33,32 @@ extension UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
+        if let title = title {
+            navigationItem.title = title
+        } else {
+            configureNavigationBarwithImage()
+        }
 
         navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
-        navigationItem.title = title
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.isTranslucent = true
 
         navigationController?.navigationBar.overrideUserInterfaceStyle = .dark
+    }
+    
+    private func configureNavigationBarwithImage(){
+        let logo = UIImageView(image: UIImage(named: "logo"))
+        let titleLogo = UIImageView(image: UIImage(named: "logoTitle"))
+        titleLogo.contentMode = .scaleAspectFit
+        logo.contentMode = .scaleAspectFit
+        titleLogo.clipsToBounds = true
+        
+        let stackView = UIStackView(arrangedSubviews: [titleLogo, logo])
+        stackView.axis = .vertical
+        
+        let logoBarView = UIBarButtonItem.init(customView: LogoView(frame: CGRect(x: 0, y: 0, width: 300, height: 50)))
+        self.navigationItem.leftBarButtonItems = [logoBarView]
     }
     
 }
