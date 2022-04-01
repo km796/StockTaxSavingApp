@@ -16,6 +16,7 @@ class StockListController: UIViewController {
     
     let tableView = UITableView()
     private var editBarButton: UIBarButtonItem!
+    private var refreshBarButton: UIBarButtonItem!
     
     let viewModel = StockListViewModel()
     
@@ -41,12 +42,13 @@ class StockListController: UIViewController {
         view.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        configureNavigationBar(withTitle: "Stock List", prefersLargeTitles: true)
+        configureNavigationBar(withTitle: nil, prefersLargeTitles: false)
         configureTableView()
     }
     private func layout() {
         editBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-        navigationItem.rightBarButtonItems = [editBarButton]
+        refreshBarButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
+        navigationItem.rightBarButtonItems = [editBarButton, refreshBarButton]
         
         view.addSubview(tableView)
         
@@ -84,7 +86,11 @@ class StockListController: UIViewController {
             .drive(onNext: { [unowned self] result in self.tableView.setEditing(!result, animated: true) })
             .disposed(by: disposeBag)
     }
-
+    
+    @objc private func refresh() {
+        viewModel.getStockPriceList()
+    }
+    
 
 }
 
