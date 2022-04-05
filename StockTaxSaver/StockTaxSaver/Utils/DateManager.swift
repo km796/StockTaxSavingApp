@@ -7,6 +7,10 @@
 
 import Foundation
 
+let unix1Hour = 3600
+let unix1Day = 86400
+let unix1Week = 604800
+
 struct DateManager {
     
     var currentUnix: Int {
@@ -14,6 +18,15 @@ struct DateManager {
     }
     
     var yesterdayUnix: Int {
-        return currentUnix - 86400
+        switch Date().dayOfWeek() {
+        case "Monday":
+            return currentUnix - unix1Day*4
+        case "Sunday":
+            return currentUnix - unix1Day*3
+        case "Saturday":
+            return currentUnix - unix1Day*2
+        default:
+            return currentUnix - unix1Day
+        }
     }
 }
