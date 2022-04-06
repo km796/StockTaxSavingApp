@@ -33,6 +33,10 @@
 		0B83CF3227F59EEA0089B418 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3127F59EEA0089B418 /* LogoView.swift */; };
 		0B83CF3427F6EC2E0089B418 /* CalculatorTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3327F6EC2E0089B418 /* CalculatorTVCell.swift */; };
 		0B83CF3627FA8E190089B418 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3527FA8E190089B418 /* Date+Extensions.swift */; };
+		0B83CF3827FBCAB00089B418 /* CalculatorElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3727FBCAB00089B418 /* CalculatorElement.swift */; };
+		0B83CF3A27FC12660089B418 /* CalculatorElementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3927FC12660089B418 /* CalculatorElementViewModel.swift */; };
+		0B83CF3C27FD34F90089B418 /* TfWithLabelOnTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3B27FD34F90089B418 /* TfWithLabelOnTop.swift */; };
+		0B83CF4027FD63DC0089B418 /* TfWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3F27FD63DC0089B418 /* TfWithPadding.swift */; };
 		C413412AB5E8DBAA9A42E0A9 /* Pods_StockTaxSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF54B6E6263814B5B7F7933F /* Pods_StockTaxSaver.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +69,10 @@
 		0B83CF3127F59EEA0089B418 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		0B83CF3327F6EC2E0089B418 /* CalculatorTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTVCell.swift; sourceTree = "<group>"; };
 		0B83CF3527FA8E190089B418 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		0B83CF3727FBCAB00089B418 /* CalculatorElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorElement.swift; sourceTree = "<group>"; };
+		0B83CF3927FC12660089B418 /* CalculatorElementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorElementViewModel.swift; sourceTree = "<group>"; };
+		0B83CF3B27FD34F90089B418 /* TfWithLabelOnTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TfWithLabelOnTop.swift; sourceTree = "<group>"; };
+		0B83CF3F27FD63DC0089B418 /* TfWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TfWithPadding.swift; sourceTree = "<group>"; };
 		1DBD2812C7F7D7AC39AA208C /* Pods-StockTaxSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockTaxSaver.debug.xcconfig"; path = "Target Support Files/Pods-StockTaxSaver/Pods-StockTaxSaver.debug.xcconfig"; sourceTree = "<group>"; };
 		8732CC17FF658FE6E4FB6F71 /* Pods-StockTaxSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockTaxSaver.release.xcconfig"; path = "Target Support Files/Pods-StockTaxSaver/Pods-StockTaxSaver.release.xcconfig"; sourceTree = "<group>"; };
 		CF54B6E6263814B5B7F7933F /* Pods_StockTaxSaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StockTaxSaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,6 +155,7 @@
 				0B42128927D5F028007345A3 /* StockInfo.swift */,
 				0B5063DF27DEE5AD00B5B18E /* SearchResponse.swift */,
 				0B5063E127DEEE7C00B5B18E /* StockPrice.swift */,
+				0B83CF3727FBCAB00089B418 /* CalculatorElement.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -167,6 +176,7 @@
 				0B42127D27D0B9D9007345A3 /* SearchResultViewModel.swift */,
 				0B42128727D5DD69007345A3 /* StockListViewModel.swift */,
 				0B1FF22E27E07B370042B94D /* StockViewModel.swift */,
+				0B83CF3927FC12660089B418 /* CalculatorElementViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -174,10 +184,8 @@
 		0B42128127D1B695007345A3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0B42127F27D1B64B007345A3 /* SearchResultCell.swift */,
-				0B42128D27D71ABD007345A3 /* StockListCell.swift */,
-				0B83CF3127F59EEA0089B418 /* LogoView.swift */,
-				0B83CF3327F6EC2E0089B418 /* CalculatorTVCell.swift */,
+				0B83CF3E27FD36460089B418 /* CustomView */,
+				0B83CF3D27FD362F0089B418 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -188,6 +196,26 @@
 				0B42128527D5B371007345A3 /* SaveService.swift */,
 			);
 			path = DataPersistence;
+			sourceTree = "<group>";
+		};
+		0B83CF3D27FD362F0089B418 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0B42127F27D1B64B007345A3 /* SearchResultCell.swift */,
+				0B42128D27D71ABD007345A3 /* StockListCell.swift */,
+				0B83CF3327F6EC2E0089B418 /* CalculatorTVCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		0B83CF3E27FD36460089B418 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				0B83CF3127F59EEA0089B418 /* LogoView.swift */,
+				0B83CF3B27FD34F90089B418 /* TfWithLabelOnTop.swift */,
+				0B83CF3F27FD63DC0089B418 /* TfWithPadding.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		6B21D3A184B7CC2C44066839 /* Pods */ = {
@@ -332,14 +360,18 @@
 				0B42124B27CC91E0007345A3 /* AppDelegate.swift in Sources */,
 				0B1FF23127E080F80042B94D /* Double+Extensions.swift in Sources */,
 				0B42128627D5B371007345A3 /* SaveService.swift in Sources */,
+				0B83CF4027FD63DC0089B418 /* TfWithPadding.swift in Sources */,
 				0B42126527D04925007345A3 /* StockListController.swift in Sources */,
 				0B1FF22F27E07B370042B94D /* StockViewModel.swift in Sources */,
 				0B83CF3227F59EEA0089B418 /* LogoView.swift in Sources */,
 				0B42126227D041D2007345A3 /* UIViewController+Extentions.swift in Sources */,
+				0B83CF3827FBCAB00089B418 /* CalculatorElement.swift in Sources */,
 				0B5063E027DEE5AD00B5B18E /* SearchResponse.swift in Sources */,
+				0B83CF3C27FD34F90089B418 /* TfWithLabelOnTop.swift in Sources */,
 				0B5063E627DF0A8B00B5B18E /* Endpoint.swift in Sources */,
 				0B83CF3627FA8E190089B418 /* Date+Extensions.swift in Sources */,
 				0B42127527D09D76007345A3 /* NetworkError.swift in Sources */,
+				0B83CF3A27FC12660089B418 /* CalculatorElementViewModel.swift in Sources */,
 				0B5063E227DEEE7D00B5B18E /* StockPrice.swift in Sources */,
 				0B42128027D1B64B007345A3 /* SearchResultCell.swift in Sources */,
 				0B83CF3427F6EC2E0089B418 /* CalculatorTVCell.swift in Sources */,
