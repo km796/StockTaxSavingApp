@@ -33,6 +33,8 @@
 		0B83CF3227F59EEA0089B418 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3127F59EEA0089B418 /* LogoView.swift */; };
 		0B83CF3427F6EC2E0089B418 /* CalculatorTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3327F6EC2E0089B418 /* CalculatorTVCell.swift */; };
 		0B83CF3627FA8E190089B418 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3527FA8E190089B418 /* Date+Extensions.swift */; };
+		0B83CF3827FBCAB00089B418 /* CalculatorElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3727FBCAB00089B418 /* CalculatorElement.swift */; };
+		0B83CF3A27FC12660089B418 /* CalculatorElementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3927FC12660089B418 /* CalculatorElementViewModel.swift */; };
 		C413412AB5E8DBAA9A42E0A9 /* Pods_StockTaxSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF54B6E6263814B5B7F7933F /* Pods_StockTaxSaver.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +67,8 @@
 		0B83CF3127F59EEA0089B418 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		0B83CF3327F6EC2E0089B418 /* CalculatorTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTVCell.swift; sourceTree = "<group>"; };
 		0B83CF3527FA8E190089B418 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		0B83CF3727FBCAB00089B418 /* CalculatorElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorElement.swift; sourceTree = "<group>"; };
+		0B83CF3927FC12660089B418 /* CalculatorElementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorElementViewModel.swift; sourceTree = "<group>"; };
 		1DBD2812C7F7D7AC39AA208C /* Pods-StockTaxSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockTaxSaver.debug.xcconfig"; path = "Target Support Files/Pods-StockTaxSaver/Pods-StockTaxSaver.debug.xcconfig"; sourceTree = "<group>"; };
 		8732CC17FF658FE6E4FB6F71 /* Pods-StockTaxSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockTaxSaver.release.xcconfig"; path = "Target Support Files/Pods-StockTaxSaver/Pods-StockTaxSaver.release.xcconfig"; sourceTree = "<group>"; };
 		CF54B6E6263814B5B7F7933F /* Pods_StockTaxSaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StockTaxSaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,6 +151,7 @@
 				0B42128927D5F028007345A3 /* StockInfo.swift */,
 				0B5063DF27DEE5AD00B5B18E /* SearchResponse.swift */,
 				0B5063E127DEEE7C00B5B18E /* StockPrice.swift */,
+				0B83CF3727FBCAB00089B418 /* CalculatorElement.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 				0B42127D27D0B9D9007345A3 /* SearchResultViewModel.swift */,
 				0B42128727D5DD69007345A3 /* StockListViewModel.swift */,
 				0B1FF22E27E07B370042B94D /* StockViewModel.swift */,
+				0B83CF3927FC12660089B418 /* CalculatorElementViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -336,10 +342,12 @@
 				0B1FF22F27E07B370042B94D /* StockViewModel.swift in Sources */,
 				0B83CF3227F59EEA0089B418 /* LogoView.swift in Sources */,
 				0B42126227D041D2007345A3 /* UIViewController+Extentions.swift in Sources */,
+				0B83CF3827FBCAB00089B418 /* CalculatorElement.swift in Sources */,
 				0B5063E027DEE5AD00B5B18E /* SearchResponse.swift in Sources */,
 				0B5063E627DF0A8B00B5B18E /* Endpoint.swift in Sources */,
 				0B83CF3627FA8E190089B418 /* Date+Extensions.swift in Sources */,
 				0B42127527D09D76007345A3 /* NetworkError.swift in Sources */,
+				0B83CF3A27FC12660089B418 /* CalculatorElementViewModel.swift in Sources */,
 				0B5063E227DEEE7D00B5B18E /* StockPrice.swift in Sources */,
 				0B42128027D1B64B007345A3 /* SearchResultCell.swift in Sources */,
 				0B83CF3427F6EC2E0089B418 /* CalculatorTVCell.swift in Sources */,
