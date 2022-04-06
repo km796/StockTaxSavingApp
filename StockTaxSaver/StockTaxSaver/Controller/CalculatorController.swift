@@ -25,7 +25,7 @@ class CalculatorController: UIViewController {
     
     
     private func style() {
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.9662850936, green: 0.9758522727, blue: 0.9758522727, alpha: 1)
         configureTableView()
         configureNavigationBar(withTitle: "Calculator", prefersLargeTitles: false)
         
@@ -61,6 +61,7 @@ class CalculatorController: UIViewController {
         tableView.dataSource = self
         tableView.register(CalculatorTVCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.rowHeight = 100
+        tableView.backgroundColor = UIColor.clear
     }
     
     
@@ -74,8 +75,22 @@ class CalculatorController: UIViewController {
 
 
 extension CalculatorController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return calculatorData.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        calculatorData.count
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = UIColor.clear
+        return footerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

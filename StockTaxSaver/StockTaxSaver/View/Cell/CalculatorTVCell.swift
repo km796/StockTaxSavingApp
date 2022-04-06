@@ -13,7 +13,7 @@ import RxCocoa
 class CalculatorTVCell: UITableViewCell {
     
     let disposeBag = DisposeBag()
-    let nameTf = UITextField()
+    let nameTf = TfWithLabelOnTop(title: "name", placeholder: "name")
     let priceTf = UITextField()
     
     var viewModel: CalculatorElementViewModel? {
@@ -21,7 +21,7 @@ class CalculatorTVCell: UITableViewCell {
             guard let vm = viewModel else {
                 return
             }
-            nameTf.text = vm.calculatorElement.name
+            nameTf.tf.tf.text = vm.calculatorElement.name
         }
     }
     
@@ -29,6 +29,7 @@ class CalculatorTVCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         styleView()
         layoutView()
+        setUpBinding()
     }
     
     required init?(coder: NSCoder) {
@@ -36,18 +37,16 @@ class CalculatorTVCell: UITableViewCell {
     }
     
     private func styleView() {
+        backgroundColor = .white
         nameTf.translatesAutoresizingMaskIntoConstraints = false
-        nameTf.placeholder = "name"
         
         priceTf.translatesAutoresizingMaskIntoConstraints = false
         priceTf.placeholder = "price"
         
-        nameTf.rx.text.orEmpty
-            .asDriver()
-            .drive(onNext: {
-                txt in
-                self.viewModel?.calculatorElement.name = txt + "$"
-            }).disposed(by: disposeBag)
+        layer.cornerRadius = 10
+        layer.borderColor = UIColor.white.cgColor
+        layer.borderWidth = 1
+        
     }
     
     private func layoutView() {
@@ -56,7 +55,17 @@ class CalculatorTVCell: UITableViewCell {
         NSLayoutConstraint.activate([
             nameTf.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             nameTf.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameTf.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5)
+            nameTf.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
+            nameTf.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3)
         ])
+    }
+    
+    private func setUpBinding() {
+        nameTf.tf.tf.rx.text.orEmpty
+            .asDriver()
+            .drive(onNext: {
+                txt in
+                self.viewModel?.calculatorElement.name = txt + "$"
+            }).disposed(by: disposeBag)
     }
 }
