@@ -57,7 +57,7 @@ extension UIViewController {
         let stackView = UIStackView(arrangedSubviews: [titleLogo, logo])
         stackView.axis = .vertical
         
-        let logoBarView = UIBarButtonItem.init(customView: LogoView(frame: CGRect(x: 0, y: 0, width: 300, height: 50)))
+        let logoBarView = UIBarButtonItem.init(customView: LogoView())
         self.navigationItem.leftBarButtonItems = [logoBarView]
     }
     

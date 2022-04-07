@@ -13,8 +13,8 @@ class LogoView: UIView {
     let logoImage = UIImageView(image: UIImage(named: "logo"))
     let titleImage = UIImageView(image: UIImage(named: "logoTitle"))
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: .zero)
         
         addSubview(logoImage)
         addSubview(titleImage)
