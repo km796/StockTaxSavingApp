@@ -24,7 +24,7 @@ class TfWithPadding: UIView {
     
     private func styleView() {
         layer.borderWidth = 1
-        layer.borderColor = UIColor.systemIndigo.cgColor
+        layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.font = UIFont.systemFont(ofSize: 10)
@@ -35,7 +35,7 @@ class TfWithPadding: UIView {
         
         
         NSLayoutConstraint.activate([
-            tf.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            tf.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             tf.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             tf.centerYAnchor.constraint(equalTo: centerYAnchor),
             tf.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7)
