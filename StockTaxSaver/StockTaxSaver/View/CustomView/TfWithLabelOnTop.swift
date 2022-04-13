@@ -26,7 +26,7 @@ class TfWithLabelOnTop: UIView {
         tf.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = .systemIndigo
+        titleLabel.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         titleLabel.text = title
         titleLabel.adjustsFontSizeToFitWidth = true
     }
@@ -39,10 +39,10 @@ class TfWithLabelOnTop: UIView {
             tf.leadingAnchor.constraint(equalTo: leadingAnchor),
             tf.trailingAnchor.constraint(equalTo: trailingAnchor),
             tf.bottomAnchor.constraint(equalTo: bottomAnchor),
-            tf.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
+            tf.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
             
             titleLabel.bottomAnchor.constraint(equalTo: tf.topAnchor, constant: -2),
-            titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
+            titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }

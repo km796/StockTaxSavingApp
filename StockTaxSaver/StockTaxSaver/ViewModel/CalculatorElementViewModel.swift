@@ -14,4 +14,14 @@ class CalculatorElementViewModel {
     init(calculatorElement: CalculatorElement) {
         self.calculatorElement = calculatorElement
     }
+    
+    func setPurchasePrice(price: String) {
+        let priceDouble = Double(price) ?? 0
+        calculatorElement.purchasePrice = priceDouble
+    }
+    
+    func setCurrentPrice(price: String) {
+        let priceDouble = Double(price) ?? 0
+        calculatorElement.currentPrice = priceDouble
+    }
 }

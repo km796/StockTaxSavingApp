@@ -10,5 +10,7 @@ import Foundation
 
 struct CalculatorElement {
     
-    var name: String
+    var name: String?
+    var purchasePrice: Double?
+    var currentPrice: Double?
 }

@@ -13,15 +13,13 @@ import RxCocoa
 class CalculatorTVCell: UITableViewCell {
     
     let disposeBag = DisposeBag()
-    let nameTf = TfWithLabelOnTop(title: "name", placeholder: "name")
-    let priceTf = UITextField()
+    let nameTf = TfWithLabelOnTop(title: "주식이름", placeholder: "주식이름")
+    let currentPriceTf = TfWithLabelOnTop(title: "현재단가", placeholder: "현재단가")
+    let purchasePriceTf = TfWithLabelOnTop(title: "매입단가", placeholder: "매입단가")
     
     var viewModel: CalculatorElementViewModel? {
         didSet {
-            guard let vm = viewModel else {
-                return
-            }
-            nameTf.tf.tf.text = vm.calculatorElement.name
+            configure()
         }
     }
     
@@ -40,8 +38,9 @@ class CalculatorTVCell: UITableViewCell {
         backgroundColor = .white
         nameTf.translatesAutoresizingMaskIntoConstraints = false
         
-        priceTf.translatesAutoresizingMaskIntoConstraints = false
-        priceTf.placeholder = "price"
+        currentPriceTf.translatesAutoresizingMaskIntoConstraints = false
+        
+        purchasePriceTf.translatesAutoresizingMaskIntoConstraints = false
         
         layer.cornerRadius = 10
         layer.borderColor = UIColor.white.cgColor
@@ -51,21 +50,74 @@ class CalculatorTVCell: UITableViewCell {
     
     private func layoutView() {
         contentView.addSubview(nameTf)
+        contentView.addSubview(purchasePriceTf)
+        contentView.addSubview(currentPriceTf)
         
         NSLayoutConstraint.activate([
-            nameTf.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            nameTf.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             nameTf.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameTf.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
-            nameTf.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3)
+            nameTf.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
+            nameTf.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.4),
+            
+            purchasePriceTf.leadingAnchor.constraint(equalTo: nameTf.trailingAnchor, constant: 16),
+            purchasePriceTf.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            purchasePriceTf.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
+            purchasePriceTf.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.4),
+            
+            currentPriceTf.leadingAnchor.constraint(equalTo: purchasePriceTf.trailingAnchor, constant: 16),
+            currentPriceTf.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            currentPriceTf.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
+            currentPriceTf.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.4),
+            
+            
         ])
     }
     
     private func setUpBinding() {
+        
         nameTf.tf.tf.rx.text.orEmpty
             .asDriver()
             .drive(onNext: {
                 txt in
-                self.viewModel?.calculatorElement.name = txt + "$"
+                self.viewModel?.calculatorElement.name = txt
             }).disposed(by: disposeBag)
+        
+        purchasePriceTf.tf.tf.rx.text.orEmpty
+            .asDriver()
+            .drive(onNext: {
+                txt in
+                self.viewModel?.setPurchasePrice(price: txt)
+            }).disposed(by: disposeBag)
+        
+        currentPriceTf.tf.tf.rx.text.orEmpty
+            .asDriver()
+            .drive(onNext: {
+                txt in
+                self.viewModel?.setCurrentPrice(price: txt)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func configure() {
+        guard let vm = viewModel else {
+            return
+        }
+        
+        if let name = vm.calculatorElement.name {
+            nameTf.tf.tf.text = name
+        } else {
+            nameTf.tf.tf.text = ""
+        }
+        
+        if let purchasePrice = vm.calculatorElement.purchasePrice {
+            purchasePriceTf.tf.tf.text = "\(purchasePrice)"
+        } else {
+            purchasePriceTf.tf.tf.text = ""
+        }
+        
+        if let currentPrice = vm.calculatorElement.currentPrice {
+            currentPriceTf.tf.tf.text = "\(currentPrice)"
+        } else {
+            currentPriceTf.tf.tf.text = ""
+        }
     }
 }
