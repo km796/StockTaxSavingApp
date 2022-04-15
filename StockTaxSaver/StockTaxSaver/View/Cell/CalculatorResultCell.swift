@@ -14,6 +14,7 @@ class CalculatorResultCell: UITableViewCell {
     let amount = UIImageView()
     let profit = UILabel()
     
+    
     var result: CalculatorResult? {
         didSet {
             configure()
@@ -50,6 +51,9 @@ class CalculatorResultCell: UITableViewCell {
             name.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             name.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
+            profit.leadingAnchor.constraint(equalTo: name.trailingAnchor, constant: 4),
+            profit.topAnchor.constraint(equalTo: contentView.topAnchor),
+            
             amount.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             amount.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             amount.widthAnchor.constraint(equalToConstant: 30),
@@ -61,7 +65,10 @@ class CalculatorResultCell: UITableViewCell {
         guard let result = result else {
             return
         }
+        let viewModel = CalculatorResultCellVM(result: result)
+        
         name.text = result.name
+        profit.text = "\(result.profit) x \(result.amount) = \(viewModel.getTotalProfit())"
         amount.image = UIImage(systemName: "\(result.amount).square")
     }
 }
