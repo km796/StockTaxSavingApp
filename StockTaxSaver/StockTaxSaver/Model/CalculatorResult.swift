@@ -11,4 +11,5 @@ struct CalculatorResult {
     
     let name: String
     let amount: Int
+    let profit: Double
 }

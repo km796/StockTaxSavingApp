@@ -13,11 +13,15 @@ class CalculatorResultController: UIViewController {
     
     var viewModel: CalculatorResultViewModel? {
         didSet {
-            resultData = viewModel?.getResults() ?? []
+            guard let viewModel = viewModel else {
+                return
+            }
+            let cellVMs = viewModel.getResults()
+            resultData = cellVMs
         }
     }
     
-    var resultData = [CalculatorResult?]()
+    var resultData = [CalculatorResultCellVM]()
     
     let tableView = UITableView()
     let reuseIdentifier = "CalculatorResultCell"
@@ -52,7 +56,7 @@ class CalculatorResultController: UIViewController {
         tableView.register(CalculatorResultCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 100
+        tableView.rowHeight = 200
     }
 }
 
@@ -69,7 +73,7 @@ extension CalculatorResultController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! CalculatorResultCell
-        cell.result = resultData[indexPath.row]
+        cell.viewModel = resultData[indexPath.row]
         return cell
     }
     
