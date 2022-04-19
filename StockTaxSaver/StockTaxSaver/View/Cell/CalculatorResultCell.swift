@@ -12,10 +12,12 @@ class CalculatorResultCell: UITableViewCell {
     
     let name = UILabel()
     let amount = UIImageView()
+    let profitDesc = UILabel()
     let profit = UILabel()
+    let total = UILabel()
     
     
-    var result: CalculatorResult? {
+    var viewModel: CalculatorResultCellVM? {
         didSet {
             configure()
         }
@@ -26,6 +28,7 @@ class CalculatorResultCell: UITableViewCell {
         
         styleView()
         layoutView()
+        configurePicker()
     }
     
     required init?(coder: NSCoder) {
@@ -36,39 +39,50 @@ class CalculatorResultCell: UITableViewCell {
         name.translatesAutoresizingMaskIntoConstraints = false
         amount.translatesAutoresizingMaskIntoConstraints = false
         profit.translatesAutoresizingMaskIntoConstraints = false
+        total.translatesAutoresizingMaskIntoConstraints = false
         
         amount.contentMode = .scaleAspectFit
         
+        name.font = .systemFont(ofSize: 20)
     }
     
     private func layoutView() {
         contentView.addSubview(name)
         contentView.addSubview(amount)
         contentView.addSubview(profit)
+        contentView.addSubview(total)
         
         
         NSLayoutConstraint.activate([
-            name.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            name.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            name.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             
-            profit.leadingAnchor.constraint(equalTo: name.trailingAnchor, constant: 4),
-            profit.topAnchor.constraint(equalTo: contentView.topAnchor),
+            profit.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 16),
+            profit.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             
             amount.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             amount.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             amount.widthAnchor.constraint(equalToConstant: 30),
-            amount.heightAnchor.constraint(equalToConstant: 30)
+            amount.heightAnchor.constraint(equalToConstant: 30),
+            
+            total.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            total.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
     }
     
     private func configure() {
-        guard let result = result else {
+        guard let viewModel = viewModel else {
             return
         }
-        let viewModel = CalculatorResultCellVM(result: result)
         
-        name.text = result.name
-        profit.text = "\(result.profit) x \(result.amount) = \(viewModel.getTotalProfit())"
-        amount.image = UIImage(systemName: "\(result.amount).square")
+        name.text = viewModel.result.name
+        profit.text = "\(viewModel.result.profit)"
+        amount.image = UIImage(systemName: "\(viewModel.result.amount).square")
+        
+        total.text = "\(viewModel.getTotalProfit())"
+    }
+    
+    private func configurePicker() {
+        
     }
 }
