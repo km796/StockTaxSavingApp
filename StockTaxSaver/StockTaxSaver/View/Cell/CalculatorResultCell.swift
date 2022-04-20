@@ -7,14 +7,20 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class CalculatorResultCell: UITableViewCell {
+    
+    let bag = DisposeBag()
     
     let name = UILabel()
     let amount = UIImageView()
     let profitDesc = UILabel()
     let profit = UILabel()
     let total = UILabel()
+    let upButton = UIButton()
+    let downButton = UIButton()
     
     
     var viewModel: CalculatorResultCellVM? {
@@ -28,7 +34,6 @@ class CalculatorResultCell: UITableViewCell {
         
         styleView()
         layoutView()
-        configurePicker()
     }
     
     required init?(coder: NSCoder) {
@@ -40,10 +45,15 @@ class CalculatorResultCell: UITableViewCell {
         amount.translatesAutoresizingMaskIntoConstraints = false
         profit.translatesAutoresizingMaskIntoConstraints = false
         total.translatesAutoresizingMaskIntoConstraints = false
+        upButton.translatesAutoresizingMaskIntoConstraints = false
+        downButton.translatesAutoresizingMaskIntoConstraints = false
         
         amount.contentMode = .scaleAspectFit
         
         name.font = .systemFont(ofSize: 20)
+        
+        upButton.setImage(UIImage(systemName: "arrowtriangle.up.square"), for: .normal)
+        downButton.setImage(UIImage(systemName: "arrowtriangle.down.square"), for: .normal)
     }
     
     private func layoutView() {
@@ -51,6 +61,8 @@ class CalculatorResultCell: UITableViewCell {
         contentView.addSubview(amount)
         contentView.addSubview(profit)
         contentView.addSubview(total)
+        contentView.addSubview(upButton)
+        contentView.addSubview(downButton)
         
         
         NSLayoutConstraint.activate([
@@ -60,10 +72,20 @@ class CalculatorResultCell: UITableViewCell {
             profit.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 16),
             profit.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             
-            amount.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            amount.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            upButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            upButton.topAnchor.constraint(equalTo: profit.bottomAnchor, constant: 8),
+            upButton.widthAnchor.constraint(equalToConstant: 30),
+            upButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            amount.trailingAnchor.constraint(equalTo: upButton.leadingAnchor, constant: -8),
+            amount.bottomAnchor.constraint(equalTo: upButton.bottomAnchor),
             amount.widthAnchor.constraint(equalToConstant: 30),
             amount.heightAnchor.constraint(equalToConstant: 30),
+            
+            downButton.trailingAnchor.constraint(equalTo: amount.leadingAnchor, constant: -8),
+            downButton.bottomAnchor.constraint(equalTo: amount.bottomAnchor),
+            downButton.widthAnchor.constraint(equalToConstant: 30),
+            downButton.heightAnchor.constraint(equalToConstant: 30),
             
             total.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             total.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
@@ -77,12 +99,36 @@ class CalculatorResultCell: UITableViewCell {
         
         name.text = viewModel.result.name
         profit.text = "\(viewModel.result.profit)"
-        amount.image = UIImage(systemName: "\(viewModel.result.amount).square")
         
-        total.text = "\(viewModel.getTotalProfit())"
+        viewModel.amountSubject
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext:{
+                value in
+                self.amount.image = UIImage(systemName: "\(value).square")
+                
+                self.total.text = "\(viewModel.getTotalProfit(amount: value))"
+                
+            }).disposed(by: bag)
+        
+        upButton.rx.tap.asDriver()
+            .drive(onNext: {
+                do {
+                    try viewModel.amountSubject.onNext(viewModel.amountSubject.value() + 1)
+                } catch {
+                    print("Amount subject error")
+                }
+            }).disposed(by: bag)
+        
+        downButton.rx.tap.asDriver()
+            .drive(onNext: {
+                do {
+                    try viewModel.amountSubject.onNext(max(0,viewModel.amountSubject.value() - 1))
+                    
+                } catch {
+                    print("Amount subject error")
+                }
+            }).disposed(by: bag)
+    
     }
     
-    private func configurePicker() {
-        
-    }
 }

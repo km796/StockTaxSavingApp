@@ -6,12 +6,23 @@
 //
 
 import Foundation
+import RxSwift
 
 struct CalculatorResultCellVM {
     
-    var result: CalculatorResult
+    let result: CalculatorResult
     
-    func getTotalProfit() -> Double{
-        return result.profit * Double(result.amount)
+    func getTotalProfit(amount: Int) -> Double{
+        let tot = result.profit * Double(amount)
+        profitSubject.onNext(tot)
+        return tot
+    }
+    
+    var profitSubject = BehaviorSubject<Double>(value: 0.0)
+    var amountSubject = BehaviorSubject<Int>(value: 0)
+    
+    init(result: CalculatorResult) {
+        self.result = result
+        amountSubject.onNext(result.amount)
     }
 }
