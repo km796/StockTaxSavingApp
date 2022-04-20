@@ -42,6 +42,7 @@
 		0B83CF4427FECA370089B418 /* CalculatorResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF4327FECA360089B418 /* CalculatorResultController.swift */; };
 		0B83CF4627FEDA230089B418 /* CalculatorResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF4527FEDA230089B418 /* CalculatorResultViewModel.swift */; };
 		0B83CF4827FEDB660089B418 /* CalculatorResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF4727FEDB660089B418 /* CalculatorResultCell.swift */; };
+		0BDAE929280FB4160072A41D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDAE928280FB4150072A41D /* Constants.swift */; };
 		0BFA6B9428095E220043F903 /* CalculatorResultCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFA6B9328095E220043F903 /* CalculatorResultCellVM.swift */; };
 		C413412AB5E8DBAA9A42E0A9 /* Pods_StockTaxSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF54B6E6263814B5B7F7933F /* Pods_StockTaxSaver.framework */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 		0B83CF4327FECA360089B418 /* CalculatorResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResultController.swift; sourceTree = "<group>"; };
 		0B83CF4527FEDA230089B418 /* CalculatorResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResultViewModel.swift; sourceTree = "<group>"; };
 		0B83CF4727FEDB660089B418 /* CalculatorResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResultCell.swift; sourceTree = "<group>"; };
+		0BDAE928280FB4150072A41D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0BFA6B9328095E220043F903 /* CalculatorResultCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResultCellVM.swift; sourceTree = "<group>"; };
 		1DBD2812C7F7D7AC39AA208C /* Pods-StockTaxSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockTaxSaver.debug.xcconfig"; path = "Target Support Files/Pods-StockTaxSaver/Pods-StockTaxSaver.debug.xcconfig"; sourceTree = "<group>"; };
 		8732CC17FF658FE6E4FB6F71 /* Pods-StockTaxSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockTaxSaver.release.xcconfig"; path = "Target Support Files/Pods-StockTaxSaver/Pods-StockTaxSaver.release.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				0B1FF23027E080F80042B94D /* Double+Extensions.swift */,
 				0B1FF23427E466A60042B94D /* DateManager.swift */,
 				0B83CF3527FA8E190089B418 /* Date+Extensions.swift */,
+				0BDAE928280FB4150072A41D /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				0B5063E627DF0A8B00B5B18E /* Endpoint.swift in Sources */,
 				0B83CF3627FA8E190089B418 /* Date+Extensions.swift in Sources */,
 				0B83CF4427FECA370089B418 /* CalculatorResultController.swift in Sources */,
+				0BDAE929280FB4160072A41D /* Constants.swift in Sources */,
 				0B42127527D09D76007345A3 /* NetworkError.swift in Sources */,
 				0B83CF3A27FC12660089B418 /* CalculatorElementViewModel.swift in Sources */,
 				0B5063E227DEEE7D00B5B18E /* StockPrice.swift in Sources */,

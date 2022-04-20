@@ -10,6 +10,16 @@ import Foundation
 struct CalculatorResultViewModel {
     
     var elements: [CalculatorElement]?
+
+    func getValidElements() -> [CalculatorElement] {
+        guard let elements = elements else {
+            return []
+        }
+        
+        return elements.filter {
+            $0.name != nil && $0.purchasePrice != nil && $0.currentPrice != nil
+        }
+    }
     
     func getResults() -> [CalculatorResultCellVM] {
         guard let elements = elements else {
@@ -33,7 +43,10 @@ struct CalculatorResultViewModel {
     
     func computeAmount(purchasePrice: Double, currentPrice: Double) -> Int {
         let diff = currentPrice - purchasePrice
-        let amount = 2500000/diff
+        if diff == 0 {
+            return 0
+        }
+        let amount = Double(totalExempt / getValidElements().count) / diff
         
         return Int(amount)
     }
