@@ -108,6 +108,8 @@ class CalculatorResultCell: UITableViewCell {
                 
                 self.total.text = "\(viewModel.getTotalProfit(amount: value))"
                 
+                viewModel.profitOnNext(newProfit: viewModel.getTotalProfit(amount: value))
+                
             }).disposed(by: bag)
         
         upButton.rx.tap.asDriver()

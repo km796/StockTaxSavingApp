@@ -11,6 +11,6 @@ import Foundation
 struct CalculatorElement {
     
     var name: String?
-    var purchasePrice: Double?
-    var currentPrice: Double?
+    var purchasePrice: Int?
+    var currentPrice: Int?
 }

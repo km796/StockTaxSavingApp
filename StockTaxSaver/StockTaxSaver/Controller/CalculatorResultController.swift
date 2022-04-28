@@ -7,9 +7,12 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class CalculatorResultController: UIViewController {
     
+    let bag = DisposeBag()
     
     var viewModel: CalculatorResultViewModel? {
         didSet {
@@ -20,35 +23,60 @@ class CalculatorResultController: UIViewController {
             resultData = cellVMs
         }
     }
+    var tot = 0
     
     var resultData = [CalculatorResultCellVM]()
     
+    let logoImage = UIImageView(image: UIImage(named: "logo"))
     let tableView = UITableView()
+    let totalLab = UILabel()
+    let remainingLab = UILabel()
     let reuseIdentifier = "CalculatorResultCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
         layout()
+        bind()
         
     }
     
     private func style() {
-        view.backgroundColor = #colorLiteral(red: 0.9662850936, green: 0.9758522727, blue: 0.9758522727, alpha: 1)
+        view.backgroundColor = .white
         
+        logoImage.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        totalLab.translatesAutoresizingMaskIntoConstraints = false
+        remainingLab.translatesAutoresizingMaskIntoConstraints = false
+        
+        logoImage.contentMode = .scaleAspectFit
         
         configureTableView()
     }
     
     private func layout() {
+        view.addSubview(logoImage)
         view.addSubview(tableView)
+        view.addSubview(totalLab)
+        view.addSubview(remainingLab)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            
+            logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            logoImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            logoImage.heightAnchor.constraint(equalToConstant: 50),
+            logoImage.widthAnchor.constraint(equalToConstant: 50),
+            
+            tableView.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 8),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: totalLab.topAnchor, constant: -8),
+            
+            totalLab.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            totalLab.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            
+            remainingLab.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            remainingLab.bottomAnchor.constraint(equalTo: totalLab.bottomAnchor)
         ])
     }
     
@@ -56,15 +84,26 @@ class CalculatorResultController: UIViewController {
         tableView.register(CalculatorResultCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 200
+        tableView.rowHeight = 150
+    }
+    
+    private func bind() {
+        for cellVm in resultData {
+            cellVm.profitSubject
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: {
+                    profit in
+                    let diff = profit[1] - profit[0]
+                    self.tot += diff
+                    self.totalLab.text = "\(self.tot)"
+                    self.remainingLab.text = "\(totalExempt - self.tot)"
+                }).disposed(by: bag)
+        }
     }
 }
 
 
 extension CalculatorResultController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         resultData.count
