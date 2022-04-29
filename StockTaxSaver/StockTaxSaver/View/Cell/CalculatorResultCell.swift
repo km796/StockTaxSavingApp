@@ -15,12 +15,13 @@ class CalculatorResultCell: UITableViewCell {
     let bag = DisposeBag()
     
     let name = UILabel()
-    let amount = UIImageView()
+    let amount = TfWithPadding(type: .center)
     let profitDesc = UILabel()
     let profit = UILabel()
     let total = UILabel()
     let upButton = UIButton()
     let downButton = UIButton()
+    let deleteButton = UIImageView(image: UIImage(named: "trash"))
     
     
     var viewModel: CalculatorResultCellVM? {
@@ -47,8 +48,8 @@ class CalculatorResultCell: UITableViewCell {
         total.translatesAutoresizingMaskIntoConstraints = false
         upButton.translatesAutoresizingMaskIntoConstraints = false
         downButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
         
-        amount.contentMode = .scaleAspectFit
         
         name.font = .systemFont(ofSize: 20)
         
@@ -63,6 +64,7 @@ class CalculatorResultCell: UITableViewCell {
         contentView.addSubview(total)
         contentView.addSubview(upButton)
         contentView.addSubview(downButton)
+        contentView.addSubview(deleteButton)
         
         
         NSLayoutConstraint.activate([
@@ -88,7 +90,10 @@ class CalculatorResultCell: UITableViewCell {
             downButton.heightAnchor.constraint(equalToConstant: 30),
             
             total.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            total.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+            total.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            
+            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4)
         ])
     }
     
@@ -98,18 +103,15 @@ class CalculatorResultCell: UITableViewCell {
         }
         
         name.text = viewModel.result.name
-        profit.text = "\(viewModel.result.profit)"
+        profit.text = viewModel.result.profit.format()
         
         viewModel.amountSubject
             .observe(on: MainScheduler.instance)
             .subscribe(onNext:{
                 value in
-                self.amount.image = UIImage(systemName: "\(value).square")
-                
-                self.total.text = "\(viewModel.getTotalProfit(amount: value))"
-                
+                self.amount.tf.text = "\(value)"
+                self.total.text = viewModel.getTotalProfit(amount: value).format()
                 viewModel.profitOnNext(newProfit: viewModel.getTotalProfit(amount: value))
-                
             }).disposed(by: bag)
         
         upButton.rx.tap.asDriver()
@@ -130,7 +132,13 @@ class CalculatorResultCell: UITableViewCell {
                     print("Amount subject error")
                 }
             }).disposed(by: bag)
-    
+        
+        amount.tf.rx.text.orEmpty.asDriver()
+            .drive(onNext: {
+                value in
+                let value = Int(value) ?? 0
+                viewModel.amountSubject.onNext(max(0, value))
+            }).disposed(by: bag)
     }
     
 }
