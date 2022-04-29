@@ -10,7 +10,7 @@ import UIKit
 
 class TfWithLabelOnTop: UIView {
     
-    let tf = TfWithPadding()
+    let tf = TfWithPadding(type: .ordinary)
     let titleLabel = UILabel()
     
     init(title: String, placeholder: String) {
