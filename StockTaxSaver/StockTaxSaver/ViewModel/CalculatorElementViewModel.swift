@@ -6,13 +6,25 @@
 //
 
 import Foundation
+import RxRelay
+import RxCocoa
 
 class CalculatorElementViewModel {
     
     var calculatorElement: CalculatorElement
     
+    private let _deleteClicked = BehaviorRelay<Bool>(value: false)
+    
     init(calculatorElement: CalculatorElement) {
         self.calculatorElement = calculatorElement
+    }
+    
+    var deleteClicked: Driver<Bool> {
+        return _deleteClicked.asDriver()
+    }
+    
+    func setDeleteClicked() {
+        _deleteClicked.accept(true)
     }
     
     func setPurchasePrice(price: String) {

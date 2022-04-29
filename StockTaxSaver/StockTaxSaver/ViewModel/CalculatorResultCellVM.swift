@@ -7,15 +7,11 @@
 
 import Foundation
 import RxSwift
+import UIKit
 
 struct CalculatorResultCellVM {
     
     let result: CalculatorResult
-    
-    func getTotalProfit(amount: Int) -> Int{
-        let tot = result.profit * amount
-        return tot
-    }
     
     var profitSubject = BehaviorSubject<[Int]>(value: [0, 0])
     var amountSubject = BehaviorSubject<Int>(value: 0)
@@ -25,6 +21,10 @@ struct CalculatorResultCellVM {
         amountSubject.onNext(result.amount)
     }
     
+    var profitTextColor: UIColor {
+        return result.profit >= 0 ? .systemIndigo : .red
+    }
+    
     func profitOnNext (newProfit: Int) {
         do {
             let currentProfit = try profitSubject.value()[1]
@@ -32,5 +32,10 @@ struct CalculatorResultCellVM {
         } catch {
             print("profitSubject value() error")
         }
+    }
+    
+    func getTotalProfit(amount: Int) -> Int{
+        let tot = result.profit * amount
+        return tot
     }
 }

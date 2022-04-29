@@ -126,7 +126,9 @@ class CalculatorResultController: UIViewController {
                     let diff = profit[1] - profit[0]
                     self.tot += diff
                     self.totalLab.text = self.tot.format()
-                    self.remainingLab.text = (totalExempt - self.tot).format()
+                    let remain = totalExempt - self.tot
+                    self.remainingLab.textColor = remain >= 0 ? .systemIndigo : .red
+                    self.remainingLab.text = remain.format()
                 }).disposed(by: bag)
         }
     }

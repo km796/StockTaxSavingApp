@@ -21,7 +21,7 @@ class CalculatorResultCell: UITableViewCell {
     let total = UILabel()
     let upButton = UIButton()
     let downButton = UIButton()
-    let deleteButton = UIImageView(image: UIImage(named: "trash"))
+    
     
     
     var viewModel: CalculatorResultCellVM? {
@@ -48,13 +48,17 @@ class CalculatorResultCell: UITableViewCell {
         total.translatesAutoresizingMaskIntoConstraints = false
         upButton.translatesAutoresizingMaskIntoConstraints = false
         downButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        profitDesc.translatesAutoresizingMaskIntoConstraints = false
         
         
         name.font = .systemFont(ofSize: 20)
         
         upButton.setImage(UIImage(systemName: "arrowtriangle.up.square"), for: .normal)
         downButton.setImage(UIImage(systemName: "arrowtriangle.down.square"), for: .normal)
+        
+        profitDesc.text = "1 주당 차익"
+        profitDesc.textColor = .gray
+        profitDesc.font = UIFont.systemFont(ofSize: 14)
     }
     
     private func layoutView() {
@@ -64,7 +68,7 @@ class CalculatorResultCell: UITableViewCell {
         contentView.addSubview(total)
         contentView.addSubview(upButton)
         contentView.addSubview(downButton)
-        contentView.addSubview(deleteButton)
+        contentView.addSubview(profitDesc)
         
         
         NSLayoutConstraint.activate([
@@ -73,6 +77,9 @@ class CalculatorResultCell: UITableViewCell {
             
             profit.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 16),
             profit.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            
+            profitDesc.bottomAnchor.constraint(equalTo: profit.bottomAnchor),
+            profitDesc.trailingAnchor.constraint(equalTo: profit.leadingAnchor, constant: -8),
             
             upButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             upButton.topAnchor.constraint(equalTo: profit.bottomAnchor, constant: 8),
@@ -90,10 +97,7 @@ class CalculatorResultCell: UITableViewCell {
             downButton.heightAnchor.constraint(equalToConstant: 30),
             
             total.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            total.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
-            
-            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4)
+            total.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
     }
     
@@ -104,6 +108,8 @@ class CalculatorResultCell: UITableViewCell {
         
         name.text = viewModel.result.name
         profit.text = viewModel.result.profit.format()
+        profit.textColor = viewModel.profitTextColor
+        total.textColor = viewModel.profitTextColor
         
         viewModel.amountSubject
             .observe(on: MainScheduler.instance)

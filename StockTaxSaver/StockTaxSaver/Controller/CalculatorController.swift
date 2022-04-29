@@ -11,6 +11,8 @@ import RxCocoa
 
 class CalculatorController: UIViewController {
     
+    private let bag = DisposeBag()
+    
     private let reuseIdentifier = "CalculatorTVCell"
     private let tableView = UITableView()
     private let calculateButton = ButtonWithLogo()
@@ -59,6 +61,7 @@ class CalculatorController: UIViewController {
     private func configureTableView(){
         let calculatorElement = CalculatorElement()
         let calculatorElementVM = CalculatorElementViewModel(calculatorElement: calculatorElement)
+        bind(calculatorElementVM: calculatorElementVM)
         calculatorData.append(calculatorElementVM)
         tableView.delegate = self
         tableView.dataSource = self
@@ -73,9 +76,26 @@ class CalculatorController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    private func bind(calculatorElementVM: CalculatorElementViewModel) {
+        calculatorElementVM.deleteClicked
+            .drive(onNext: {
+                clicked in
+                if clicked {
+                    let idx = self.calculatorData.firstIndex { candidate in
+                        candidate === calculatorElementVM
+                    }
+                    if let idx = idx {
+                        self.calculatorData.remove(at: idx)
+                    }
+                    self.tableView.reloadData()
+                }
+            }).disposed(by: bag)
+    }
+    
     @objc private func add() {
         let calculatorElement = CalculatorElement()
         let calculatorElementVM = CalculatorElementViewModel(calculatorElement: calculatorElement)
+        bind(calculatorElementVM: calculatorElementVM)
         calculatorData.append(calculatorElementVM)
         tableView.reloadData()
     }

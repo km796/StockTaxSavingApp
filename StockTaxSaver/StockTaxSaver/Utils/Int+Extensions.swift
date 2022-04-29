@@ -13,6 +13,6 @@ extension Int {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         let formattedNumber = numberFormatter.string(from: NSNumber(value:self)) ?? ""
-        return formattedNumber + "원"
+        return formattedNumber + " 원"
     }
 }
