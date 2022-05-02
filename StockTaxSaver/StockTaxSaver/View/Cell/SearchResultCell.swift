@@ -75,5 +75,6 @@ class SearchResultCell: UITableViewCell {
 
         name.text = searchResult.name
         symbol.text = searchResult.symbol
+        currency.text = searchResult.currency
     }
 }
