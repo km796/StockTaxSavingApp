@@ -31,6 +31,7 @@
 		0B5063E227DEEE7D00B5B18E /* StockPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5063E127DEEE7C00B5B18E /* StockPrice.swift */; };
 		0B5063E627DF0A8B00B5B18E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5063E527DF0A8B00B5B18E /* Endpoint.swift */; };
 		0B6C672F28066ED6009F13AB /* CalculatorResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6C672E28066ED6009F13AB /* CalculatorResult.swift */; };
+		0B796CC5281A2E8D00905235 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B796CC4281A2E8D00905235 /* Int+Extensions.swift */; };
 		0B83CF3227F59EEA0089B418 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3127F59EEA0089B418 /* LogoView.swift */; };
 		0B83CF3427F6EC2E0089B418 /* CalculatorTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3327F6EC2E0089B418 /* CalculatorTVCell.swift */; };
 		0B83CF3627FA8E190089B418 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3527FA8E190089B418 /* Date+Extensions.swift */; };
@@ -74,6 +75,7 @@
 		0B5063E127DEEE7C00B5B18E /* StockPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPrice.swift; sourceTree = "<group>"; };
 		0B5063E527DF0A8B00B5B18E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		0B6C672E28066ED6009F13AB /* CalculatorResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResult.swift; sourceTree = "<group>"; };
+		0B796CC4281A2E8D00905235 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		0B83CF3127F59EEA0089B418 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		0B83CF3327F6EC2E0089B418 /* CalculatorTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTVCell.swift; sourceTree = "<group>"; };
 		0B83CF3527FA8E190089B418 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				0B1FF23427E466A60042B94D /* DateManager.swift */,
 				0B83CF3527FA8E190089B418 /* Date+Extensions.swift */,
 				0BDAE928280FB4150072A41D /* Constants.swift */,
+				0B796CC4281A2E8D00905235 /* Int+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				0B42127127D083BF007345A3 /* APIService.swift in Sources */,
 				0B42126927D04991007345A3 /* CalculatorController.swift in Sources */,
 				0B42128A27D5F028007345A3 /* StockInfo.swift in Sources */,
+				0B796CC5281A2E8D00905235 /* Int+Extensions.swift in Sources */,
 				0B1FF23527E466A60042B94D /* DateManager.swift in Sources */,
 				0B42125F27D04127007345A3 /* MainViewController.swift in Sources */,
 				0B42124B27CC91E0007345A3 /* AppDelegate.swift in Sources */,

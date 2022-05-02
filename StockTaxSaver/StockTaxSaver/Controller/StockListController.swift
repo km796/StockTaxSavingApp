@@ -102,6 +102,7 @@ extension StockListController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! StockListCell
         cell.stockPrice = stockPricesList[indexPath.row]
+        cell.selectionStyle = .none
         return cell
     }
     

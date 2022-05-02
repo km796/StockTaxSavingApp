@@ -15,12 +15,13 @@ class CalculatorResultCell: UITableViewCell {
     let bag = DisposeBag()
     
     let name = UILabel()
-    let amount = UIImageView()
+    let amount = TfWithPadding(type: .center)
     let profitDesc = UILabel()
     let profit = UILabel()
     let total = UILabel()
     let upButton = UIButton()
     let downButton = UIButton()
+    
     
     
     var viewModel: CalculatorResultCellVM? {
@@ -47,13 +48,17 @@ class CalculatorResultCell: UITableViewCell {
         total.translatesAutoresizingMaskIntoConstraints = false
         upButton.translatesAutoresizingMaskIntoConstraints = false
         downButton.translatesAutoresizingMaskIntoConstraints = false
+        profitDesc.translatesAutoresizingMaskIntoConstraints = false
         
-        amount.contentMode = .scaleAspectFit
         
         name.font = .systemFont(ofSize: 20)
         
         upButton.setImage(UIImage(systemName: "arrowtriangle.up.square"), for: .normal)
         downButton.setImage(UIImage(systemName: "arrowtriangle.down.square"), for: .normal)
+        
+        profitDesc.text = "1 주당 차익"
+        profitDesc.textColor = .gray
+        profitDesc.font = UIFont.systemFont(ofSize: 14)
     }
     
     private func layoutView() {
@@ -63,6 +68,7 @@ class CalculatorResultCell: UITableViewCell {
         contentView.addSubview(total)
         contentView.addSubview(upButton)
         contentView.addSubview(downButton)
+        contentView.addSubview(profitDesc)
         
         
         NSLayoutConstraint.activate([
@@ -71,6 +77,9 @@ class CalculatorResultCell: UITableViewCell {
             
             profit.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 16),
             profit.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            
+            profitDesc.bottomAnchor.constraint(equalTo: profit.bottomAnchor),
+            profitDesc.trailingAnchor.constraint(equalTo: profit.leadingAnchor, constant: -8),
             
             upButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             upButton.topAnchor.constraint(equalTo: profit.bottomAnchor, constant: 8),
@@ -98,16 +107,17 @@ class CalculatorResultCell: UITableViewCell {
         }
         
         name.text = viewModel.result.name
-        profit.text = "\(viewModel.result.profit)"
+        profit.text = viewModel.result.profit.format()
+        profit.textColor = viewModel.profitTextColor
+        total.textColor = viewModel.profitTextColor
         
         viewModel.amountSubject
             .observe(on: MainScheduler.instance)
             .subscribe(onNext:{
                 value in
-                self.amount.image = UIImage(systemName: "\(value).square")
-                
-                self.total.text = "\(viewModel.getTotalProfit(amount: value))"
-                
+                self.amount.tf.text = "\(value)"
+                self.total.text = viewModel.getTotalProfit(amount: value).format()
+                viewModel.profitOnNext(newProfit: viewModel.getTotalProfit(amount: value))
             }).disposed(by: bag)
         
         upButton.rx.tap.asDriver()
@@ -128,7 +138,13 @@ class CalculatorResultCell: UITableViewCell {
                     print("Amount subject error")
                 }
             }).disposed(by: bag)
-    
+        
+        amount.tf.rx.text.orEmpty.asDriver()
+            .drive(onNext: {
+                value in
+                let value = Int(value) ?? 0
+                viewModel.amountSubject.onNext(max(0, value))
+            }).disposed(by: bag)
     }
     
 }

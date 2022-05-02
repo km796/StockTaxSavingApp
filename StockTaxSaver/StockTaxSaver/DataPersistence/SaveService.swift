@@ -41,6 +41,18 @@ struct SaveService {
         userDefaults.set(symbols, forKey: symbols_key)
     }
     
+    func remove(symbol: String) {
+        var symbols = userDefaults.stringArray(forKey: symbols_key) ?? []
+        
+        let idx = symbols.firstIndex { sym in
+            sym == symbol
+        }
+        if let idx=idx {
+            symbols.remove(at: idx)
+            userDefaults.set(symbols, forKey: symbols_key)
+        }
+    }
+    
     func getList() -> [String] {
         return userDefaults.stringArray(forKey: symbols_key) ?? []
     }
