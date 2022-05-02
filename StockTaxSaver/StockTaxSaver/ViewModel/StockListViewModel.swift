@@ -11,35 +11,29 @@ import RxSwift
 struct StockListViewModel {
     
     let disposeBag = DisposeBag()
-    let stockInfos = PublishSubject<[StockInfo]>()
     let stockPrices = PublishSubject<[StockPriceWithDetails]>()
     
-    
-    /*성공 함수. reduce 함수를 이용해 Observable의 모든 emitted events 들을 array 로 묶어 stockInfos Subject 로 넘겨주는 방식.
-     reduce 는 반드시 onCompleted 후에 리턴을 하기 때문에 getObservableRx 에 onCompleted을 넣는것을 잊지말자 */
     func getStockPriceList() {
         
         let symbolList = SaveService.shared.getList()
         print(symbolList)
         let symbols = Observable.from(symbolList)
+        var dic = [String: StockPriceWithDetails]()
         
-        symbols.concatMap{ symbol -> Observable<StockPriceWithDetails> in
+        symbols.flatMap{ symbol -> Observable<StockPriceWithDetails> in
             let obs:Observable<StockPriceWithDetails> = getStockPriceRx(symbol: symbol, from: "\(DateManager().yesterdayUnix)", to: "\(DateManager().currentUnix)")
             return obs
-        }.catchAndReturn(StockPriceWithDetails(symbol: "", description: "", stockPrice: StockPrice(c: [])))
-        .reduce([]){ agg, si -> [StockPriceWithDetails] in
-            if si.stockPrice.c.isEmpty {
-                print("Error in fetching the data")
-                return agg
-            }
-            return agg + [si]
         }
-        .subscribe(onNext: {silist in
-            stockPrices.onNext(silist)
+        .subscribe(onNext: {stock in
+            dic[stock.symbol] = stock
         },
         onError: { error in
             print(error)
+        }, onCompleted: {
+            let res:[StockPriceWithDetails] = symbolList.map {dic[$0]}.compactMap{$0}
+            stockPrices.onNext(res)
         }).disposed(by: disposeBag)
+        
     }
     
     func getStockPriceRx(symbol: String, from: String, to: String) -> Observable<StockPriceWithDetails> {
@@ -47,8 +41,8 @@ struct StockListViewModel {
             APIService().fetchStockData(with: .stockPrice(symbol: symbol, from: from, to: to)) { result in
                 switch result {
                 case .failure(let error):
-                    print(error)
-                    observer.onError(error)
+                    print("\(error) " + symbol)
+                    SaveService.shared.remove(symbol: symbol)
                     observer.onCompleted()
                 case .success(let si):
                     let desc = SaveService.shared.getDescription(for: symbol)
