@@ -21,6 +21,7 @@ class CalculatorController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         style()
         layout()
         keyboardControl()

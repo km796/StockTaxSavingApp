@@ -21,10 +21,13 @@ class AddStockController: UIViewController {
     //view model
     let searchResultViewModel = SearchResultViewModel()
     
+    var searchData = [StockSearchResult]()
+    
     let reuseIdentifier = "SearchResultCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         setStatusBar()
         setUpViewController()
         style()
@@ -66,22 +69,32 @@ class AddStockController: UIViewController {
     }
     
     private func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.rowHeight = 80
     }
     
     private func bind() {
-        searchResultViewModel.searchResult
-            .bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: SearchResultCell.self)){
-                index, model, cell in
-                cell.searchResult = model
-            }.disposed(by: disposeBag)
+//        searchResultViewModel.searchResult
+//            .bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: SearchResultCell.self)){
+//                index, model, cell in
+//                cell.searchResult = model
+//            }.disposed(by: disposeBag)
+//
+//        tableView.rx.modelSelected(StockSearchResult.self)
+//            .subscribe(onNext: { [weak self] searchResult in
+//                SaveService.shared.addToList(symbol: searchResult.symbol)
+//                SaveService.shared.addDescription(for: searchResult.symbol, description: searchResult.name)
+//                
+//            }).disposed(by: disposeBag)
         
-        tableView.rx.modelSelected(StockSearchResult.self)
-            .subscribe(onNext: { [weak self] searchResult in
-                SaveService.shared.addToList(symbol: searchResult.symbol)
-                SaveService.shared.addDescription(for: searchResult.symbol, description: searchResult.name)
-                
+        searchResultViewModel.searchResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                results in
+                self.searchData = results
+                self.tableView.reloadData()
             }).disposed(by: disposeBag)
     }
 
@@ -94,6 +107,23 @@ extension AddStockController: UISearchBarDelegate {
             return
         }
         searchResultViewModel.getSearchResult(stockName: text)
+    }
+}
+
+extension AddStockController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        searchData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! SearchResultCell
+        cell.searchResult = searchData[indexPath.row]
+        cell.selectionStyle = .none
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
     }
 }
     

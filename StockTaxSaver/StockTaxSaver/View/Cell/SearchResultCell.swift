@@ -7,8 +7,12 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SearchResultCell: UITableViewCell {
+    
+    let bag = DisposeBag()
     
     var searchResult: StockSearchResult? {
         didSet {
@@ -20,6 +24,7 @@ class SearchResultCell: UITableViewCell {
     let symbol = UILabel()
     let currency = UILabel()
     let stackView = UIStackView()
+    let addButton = UIButton()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,7 +40,7 @@ class SearchResultCell: UITableViewCell {
     private func styleViews() {
         name.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
+        addButton.translatesAutoresizingMaskIntoConstraints = false
         
         name.lineBreakMode = .byWordWrapping
         name.numberOfLines = 0
@@ -44,13 +49,14 @@ class SearchResultCell: UITableViewCell {
         stackView.spacing = 4
         
         symbol.font = UIFont.boldSystemFont(ofSize: 16)
-
+        
         
     }
     
     private func layout() {
-        addSubview(name)
-        addSubview(stackView)
+        contentView.addSubview(name)
+        contentView.addSubview(stackView)
+        contentView.addSubview(addButton)
         
         stackView.addArrangedSubview(symbol)
         stackView.addArrangedSubview(currency)
@@ -58,11 +64,14 @@ class SearchResultCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -8),
+            stackView.rightAnchor.constraint(equalTo: addButton.leftAnchor, constant: -8),
             
             name.centerYAnchor.constraint(equalTo: centerYAnchor),
             name.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
-            name.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5)
+            name.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            
+            addButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            addButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8)
         ])
         
         
@@ -72,9 +81,25 @@ class SearchResultCell: UITableViewCell {
         guard let searchResult = searchResult else {
             return
         }
+        let viewModel = SearchResultCellVM(searchResult: searchResult)
 
         name.text = searchResult.name
         symbol.text = searchResult.symbol
         currency.text = searchResult.currency
+        
+        viewModel.buttonChecked
+            .drive(onNext: { checked in
+                if checked {
+                    self.addButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+                } else {
+                    self.addButton.setImage(UIImage(systemName: "plus.circle"), for: .normal)
+                }
+            }).disposed(by: bag)
+        
+        addButton.rx.tap.asDriver()
+            .drive(onNext: {
+                print("tapped")
+                viewModel.setButtonChecked(checked: !viewModel.buttonState)
+            }).disposed(by: bag)
     }
 }
