@@ -14,7 +14,7 @@ class SearchResultCell: UITableViewCell {
     
     let bag = DisposeBag()
     
-    var searchResult: StockSearchResult? {
+    var viewModel: SearchResultCellVM? {
         didSet {
             configure()
         }
@@ -31,6 +31,7 @@ class SearchResultCell: UITableViewCell {
         
         styleViews()
         layout()
+        bindView()
     }
     
     required init?(coder: NSCoder) {
@@ -78,14 +79,13 @@ class SearchResultCell: UITableViewCell {
     }
     
     private func configure() {
-        guard let searchResult = searchResult else {
+        guard let viewModel = viewModel else {
             return
         }
-        let viewModel = SearchResultCellVM(searchResult: searchResult)
-
-        name.text = searchResult.name
-        symbol.text = searchResult.symbol
-        currency.text = searchResult.currency
+        
+        name.text = viewModel.searchResult.name
+        symbol.text = viewModel.searchResult.symbol
+        currency.text = viewModel.searchResult.currency
         
         viewModel.buttonChecked
             .drive(onNext: { checked in
@@ -96,10 +96,18 @@ class SearchResultCell: UITableViewCell {
                 }
             }).disposed(by: bag)
         
+
+    }
+    
+    private func bindView() {
         addButton.rx.tap.asDriver()
             .drive(onNext: {
-                print("tapped")
+                guard let viewModel = self.viewModel else {
+                    return
+                }
                 viewModel.setButtonChecked(checked: !viewModel.buttonState)
+                viewModel.saveOrRemoveSymbol()
+//                print("tapped: \(viewModel.searchResult.symbol)")
             }).disposed(by: bag)
     }
 }

@@ -13,8 +13,6 @@ import RxCocoa
 
 struct SearchResultCellVM {
     
-    let bag = DisposeBag()
-    
     let searchResult: StockSearchResult
     
     init(searchResult: StockSearchResult) {
@@ -22,12 +20,11 @@ struct SearchResultCellVM {
         
         let symbolsList = SaveService.shared.getList()
         if symbolsList.contains(searchResult.symbol) {
+            print("test: \(searchResult.symbol)")
             setButtonChecked(checked: true)
         } else {
             setButtonChecked(checked: false)
         }
-        
-        bind()
     }
     
     private let _buttonChecked = BehaviorRelay<Bool>(value: false)
@@ -44,16 +41,12 @@ struct SearchResultCellVM {
         _buttonChecked.accept(checked)
     }
     
-    private func bind() {
-        buttonChecked.drive(onNext: {
-            checked in
-            if checked {
-                SaveService.shared.addToList(symbol: searchResult.symbol)
-                SaveService.shared.addDescription(for: searchResult.symbol, description: searchResult.name)
-            } else {
-                SaveService.shared.remove(symbol: searchResult.symbol)
-            }
-        }).disposed(by: bag)
+    func saveOrRemoveSymbol() {
+        if buttonState {
+            SaveService.shared.addToList(symbol: searchResult.symbol)
+            SaveService.shared.addDescription(for: searchResult.symbol, description: searchResult.name)
+        } else {
+            SaveService.shared.remove(symbol: searchResult.symbol)
+        }
     }
-    
 }

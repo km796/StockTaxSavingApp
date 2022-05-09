@@ -18,7 +18,7 @@ struct APIService {
             completion(.failure(.invalidURL))
             return
         }
-        print(url)
+//        print(url)
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
@@ -40,6 +40,7 @@ struct APIService {
             completion(.failure(.invalidURL))
             return
         }
+//        print(url)
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
                 completion(.failure(.requestFailed))

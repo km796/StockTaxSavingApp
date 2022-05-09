@@ -12,21 +12,30 @@ import RxCocoa
 
 class StockListController: UIViewController {
     
+    //ViewModel
+    let viewModel = StockListViewModel()
+    
+    //Data
     var stockPricesList = [StockPriceWithDetails]()
     
+    //Views
     let tableView = UITableView()
+    let emptyListMessage = UILabel()
+    private let refreshControl = UIRefreshControl()
     private var editBarButton: UIBarButtonItem!
     private var refreshBarButton: UIBarButtonItem!
     
-    let viewModel = StockListViewModel()
+    //Dispose Bag
+    let disposeBag = DisposeBag()
     
+    //Reuseidentifier
     let reuseIdentifier = "StockListCell"
     
-    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setStatusBar()
+        addTableViewRefresh()
         style()
         layout()
         bind()
@@ -38,9 +47,23 @@ class StockListController: UIViewController {
         viewModel.getStockPriceList()
     }
     
+    func addTableViewRefresh() {
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+    
     private func style() {
         view.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        emptyListMessage.translatesAutoresizingMaskIntoConstraints = false
+        
+        emptyListMessage.isHidden = true
+        emptyListMessage.text = "리스트가 비었습니다.\n아래 탭에서 검색 후 추가해주세요"
+        emptyListMessage.numberOfLines = 0
+        emptyListMessage.textAlignment = .center
+        emptyListMessage.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        
         
         configureNavigationBar(withTitle: nil, prefersLargeTitles: false)
         configureTableView()
@@ -51,12 +74,17 @@ class StockListController: UIViewController {
         navigationItem.rightBarButtonItems = [editBarButton, refreshBarButton]
         
         view.addSubview(tableView)
+        view.addSubview(emptyListMessage)
         
         NSLayoutConstraint.activate([
+            emptyListMessage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            emptyListMessage.leftAnchor.constraint(equalTo: view.leftAnchor),
+            emptyListMessage.rightAnchor.constraint(equalTo: view.rightAnchor),
+            
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
@@ -66,8 +94,14 @@ class StockListController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
                 spList in
+                if spList.isEmpty {
+                    self.emptyListMessage.isHidden = false
+                } else {
+                    self.emptyListMessage.isHidden = true
+                }
                 self.stockPricesList = spList
                 self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
             }).disposed(by: disposeBag)
     }
     
@@ -94,6 +128,7 @@ class StockListController: UIViewController {
 
 }
 
+//MARK: TableView delegate and data source
 extension StockListController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stockPricesList.count

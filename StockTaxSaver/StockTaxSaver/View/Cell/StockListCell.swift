@@ -59,6 +59,8 @@ class StockListCell: UITableViewCell {
         chartView.leftAxis.enabled = false
         chartView.rightAxis.enabled = false
         chartView.legend.form = .line
+        chartView.setScaleEnabled(false)
+        chartView.isMultipleTouchEnabled = false
     
     
     }

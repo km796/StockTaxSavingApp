@@ -35,6 +35,12 @@ class AddStockController: UIViewController {
         bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.searchData.removeAll()
+        self.tableView.reloadData()
+    }
+    
     private func setUpViewController() {
         searchBar.delegate = self
     }
@@ -117,7 +123,7 @@ extension AddStockController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! SearchResultCell
-        cell.searchResult = searchData[indexPath.row]
+        cell.viewModel = SearchResultCellVM(searchResult: searchData[indexPath.row])
         cell.selectionStyle = .none
         return cell
     }
