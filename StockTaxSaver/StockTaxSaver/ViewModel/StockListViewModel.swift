@@ -63,6 +63,10 @@ struct StockListViewModel {
         SaveService.shared.remove(at: index)
     }
     
+    func isSymbolsListEmpty() -> Bool {
+        return SaveService.shared.getList().isEmpty
+    }
+    
     
     
     

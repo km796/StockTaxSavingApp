@@ -45,6 +45,11 @@ class StockListController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.getStockPriceList()
+        if viewModel.isSymbolsListEmpty() {
+            emptyListMessage.isHidden = false
+        } else {
+            emptyListMessage.isHidden = true
+        }
     }
     
     func addTableViewRefresh() {
@@ -58,7 +63,6 @@ class StockListController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         emptyListMessage.translatesAutoresizingMaskIntoConstraints = false
         
-        emptyListMessage.isHidden = true
         emptyListMessage.text = "리스트가 비었습니다.\n아래 탭에서 검색 후 추가해주세요"
         emptyListMessage.numberOfLines = 0
         emptyListMessage.textAlignment = .center

@@ -82,19 +82,6 @@ class AddStockController: UIViewController {
     }
     
     private func bind() {
-//        searchResultViewModel.searchResult
-//            .bind(to: tableView.rx.items(cellIdentifier: reuseIdentifier, cellType: SearchResultCell.self)){
-//                index, model, cell in
-//                cell.searchResult = model
-//            }.disposed(by: disposeBag)
-//
-//        tableView.rx.modelSelected(StockSearchResult.self)
-//            .subscribe(onNext: { [weak self] searchResult in
-//                SaveService.shared.addToList(symbol: searchResult.symbol)
-//                SaveService.shared.addDescription(for: searchResult.symbol, description: searchResult.name)
-//                
-//            }).disposed(by: disposeBag)
-        
         searchResultViewModel.searchResult
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
