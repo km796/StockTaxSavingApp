@@ -24,6 +24,7 @@ class StockListController: UIViewController {
     private let refreshControl = UIRefreshControl()
     private var editBarButton: UIBarButtonItem!
     private var refreshBarButton: UIBarButtonItem!
+    private let currencyView = CurrencyContainer()
     
     //Dispose Bag
     let disposeBag = DisposeBag()
@@ -45,6 +46,7 @@ class StockListController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.getStockPriceList()
+        CurrencyBus.shared.fetchCurrency()
         if viewModel.isSymbolsListEmpty() {
             emptyListMessage.isHidden = false
         } else {
@@ -62,12 +64,15 @@ class StockListController: UIViewController {
         view.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
         emptyListMessage.translatesAutoresizingMaskIntoConstraints = false
+        currencyView.translatesAutoresizingMaskIntoConstraints = false
         
         emptyListMessage.text = "리스트가 비었습니다.\n아래 탭에서 검색 후 추가해주세요"
         emptyListMessage.numberOfLines = 0
         emptyListMessage.textAlignment = .center
         emptyListMessage.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         
+        currencyView.setImage(image: UIImage(systemName: "dollarsign.circle"))
+        currencyView.setTitle(title: "1 달러 당")
         
         configureNavigationBar(withTitle: nil, prefersLargeTitles: false)
         configureTableView()
@@ -79,13 +84,18 @@ class StockListController: UIViewController {
         
         view.addSubview(tableView)
         view.addSubview(emptyListMessage)
+        view.addSubview(currencyView)
         
         NSLayoutConstraint.activate([
-            emptyListMessage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            emptyListMessage.leftAnchor.constraint(equalTo: view.leftAnchor),
-            emptyListMessage.rightAnchor.constraint(equalTo: view.rightAnchor),
+            emptyListMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyListMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            currencyView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            currencyView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            currencyView.heightAnchor.constraint(equalToConstant: 50),
+            currencyView.widthAnchor.constraint(equalToConstant: 250),
+            
+            tableView.topAnchor.constraint(equalTo: currencyView.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -107,6 +117,11 @@ class StockListController: UIViewController {
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
             }).disposed(by: disposeBag)
+        
+        CurrencyBus.shared.currencyEvent().asDriver()
+            .drive(onNext: {price in
+                self.currencyView.setPrice(price: price)
+            }).disposed(by: disposeBag)
     }
     
     private func configureTableView() {
@@ -127,6 +142,7 @@ class StockListController: UIViewController {
     
     @objc private func refresh() {
         viewModel.getStockPriceList()
+        CurrencyBus.shared.fetchCurrency()
     }
     
 
@@ -140,7 +156,7 @@ extension StockListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! StockListCell
-        cell.stockPrice = stockPricesList[indexPath.row]
+        cell.viewModel = StockListCellVM(stock: stockPricesList[indexPath.row])
         cell.selectionStyle = .none
         return cell
     }

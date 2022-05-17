@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 struct StockListViewModel {
     
@@ -66,7 +67,7 @@ struct StockListViewModel {
     func isSymbolsListEmpty() -> Bool {
         return SaveService.shared.getList().isEmpty
     }
-    
+
     
     
     

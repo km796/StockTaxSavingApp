@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct StockViewModel {
+struct StockListCellVM {
     
     private let stock: StockPriceWithDetails
     
@@ -28,6 +28,30 @@ struct StockViewModel {
     
     var diffColor: UIColor {
         return diff < 0 ? .blue : .red
+    }
+    
+    var symbol: String {
+        return stock.symbol
+    }
+    
+    var priceList: [Double] {
+        return stock.stockPrice.c
+    }
+    
+    var name: String {
+        return symbol.description
+    }
+    
+    var openPrice: Double {
+        if let price = priceList.last {
+            return price
+        } else {
+            return 0.0
+        }
+    }
+    
+    var initialOpenW: Int {
+        return Int(CurrencyBus.shared.currency * openPrice)
     }
     
     init(stock: StockPriceWithDetails) {

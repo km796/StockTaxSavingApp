@@ -107,7 +107,6 @@ class SearchResultCell: UITableViewCell {
                 }
                 viewModel.setButtonChecked(checked: !viewModel.buttonState)
                 viewModel.saveOrRemoveSymbol()
-//                print("tapped: \(viewModel.searchResult.symbol)")
             }).disposed(by: bag)
     }
 }
