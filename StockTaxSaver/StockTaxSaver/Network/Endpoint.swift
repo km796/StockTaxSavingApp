@@ -35,6 +35,14 @@ extension Endpoint {
                 URLQueryItem(name: "token", value: API_KEY)
             ], host: "finnhub.io")
     }
+    
+    static func currencyExchange()->Endpoint {
+        return Endpoint(
+            path: "/v1/forex/recent",
+            queryItems: [
+            URLQueryItem(name: "codes", value: "FRX.KRWUSD")
+            ], host: "quotation-api-cdn.dunamu.com")
+    }
 }
 
 extension Endpoint {
