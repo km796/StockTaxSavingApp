@@ -8,10 +8,13 @@
 import Foundation
 import UIKit
 import Charts
+import RxSwift
 
 class StockListCell: UITableViewCell {
     
-    var stockPrice: StockPriceWithDetails? {
+    let bag = DisposeBag()
+    
+    var viewModel: StockListCellVM? {
         didSet {
             configure()
         }
@@ -20,6 +23,7 @@ class StockListCell: UITableViewCell {
     let symbol = UILabel()
     let name = UILabel()
     let open = UILabel()
+    let openW = UILabel()
     let diff = UILabel()
     
     let left = UIStackView()
@@ -31,6 +35,7 @@ class StockListCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         styleViews()
         layout()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -53,12 +58,20 @@ class StockListCell: UITableViewCell {
         
         open.textAlignment = .right
         
+        openW.textAlignment = .right
+        openW.adjustsFontSizeToFitWidth = true
+        openW.textColor = .darkGray
+        openW.font = .systemFont(ofSize: 14)
+        
         chartView.chartDescription?.enabled = false
         chartView.legend.enabled = false
         chartView.xAxis.enabled = false
         chartView.leftAxis.enabled = false
         chartView.rightAxis.enabled = false
         chartView.legend.form = .line
+        chartView.setScaleEnabled(false)
+        chartView.isMultipleTouchEnabled = false
+
     
     
     }
@@ -68,6 +81,7 @@ class StockListCell: UITableViewCell {
         left.addArrangedSubview(name)
         
         right.addArrangedSubview(open)
+        right.addArrangedSubview(openW)
         right.addArrangedSubview(diff)
 
         
@@ -93,27 +107,32 @@ class StockListCell: UITableViewCell {
         ])
     }
     
+    private func bind() {
+        CurrencyBus.shared.currencyEvent().asDriver()
+            .drive(onNext: { currency in
+                guard let viewModel = self.viewModel else {
+                    return
+                }
+                self.openW.text = "\((viewModel.openPrice*currency).rounded(toPlaces: 0))"
+            }).disposed(by: bag)
+    }
+    
     private func configure() {
-        
-        guard let stockPrice = stockPrice else {
+        guard let viewModel = viewModel else {
             return
         }
-        let viewModel = StockViewModel(stock: stockPrice)
-        
-        let symbolText = stockPrice.symbol
-        let nameText = stockPrice.description
-        let priceList = stockPrice.stockPrice.c
-        
-        symbol.text = symbolText
-        name.text = nameText
-        diff.text = "\(viewModel.diffWithSign)"
+
+        symbol.text = viewModel.symbol
+        name.text = viewModel.name
+        open.text = "$\(viewModel.openPrice)"
+        openW.text = viewModel.initialOpenW.format()
+        diff.text = viewModel.diffWithSign
         diff.textColor = viewModel.diffColor
-        if let price = priceList.last {
-            open.text = "\(price)"
-        }
+     
         
-        setChart(dataPoints: priceList.count, values: priceList)
+        setChart(dataPoints: viewModel.priceList.count, values: viewModel.priceList)
     }
+
     
     func setChart(dataPoints: Int, values: [Double]) {
             

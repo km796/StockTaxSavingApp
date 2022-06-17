@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 struct StockListViewModel {
     
@@ -63,6 +64,10 @@ struct StockListViewModel {
         SaveService.shared.remove(at: index)
     }
     
+    func isSymbolsListEmpty() -> Bool {
+        return SaveService.shared.getList().isEmpty
+    }
+
     
     
     

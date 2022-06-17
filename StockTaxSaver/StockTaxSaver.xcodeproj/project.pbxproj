@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B1FF22F27E07B370042B94D /* StockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1FF22E27E07B370042B94D /* StockViewModel.swift */; };
+		0B1FF22F27E07B370042B94D /* StockListCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1FF22E27E07B370042B94D /* StockListCellVM.swift */; };
 		0B1FF23127E080F80042B94D /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1FF23027E080F80042B94D /* Double+Extensions.swift */; };
 		0B1FF23527E466A60042B94D /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1FF23427E466A60042B94D /* DateManager.swift */; };
 		0B42124B27CC91E0007345A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42124A27CC91E0007345A3 /* AppDelegate.swift */; };
@@ -30,8 +30,12 @@
 		0B5063E027DEE5AD00B5B18E /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5063DF27DEE5AD00B5B18E /* SearchResponse.swift */; };
 		0B5063E227DEEE7D00B5B18E /* StockPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5063E127DEEE7C00B5B18E /* StockPrice.swift */; };
 		0B5063E627DF0A8B00B5B18E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5063E527DF0A8B00B5B18E /* Endpoint.swift */; };
+		0B51C249282DF26C00A33C39 /* CurrencyBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51C248282DF26C00A33C39 /* CurrencyBus.swift */; };
 		0B6C672F28066ED6009F13AB /* CalculatorResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6C672E28066ED6009F13AB /* CalculatorResult.swift */; };
 		0B796CC5281A2E8D00905235 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B796CC4281A2E8D00905235 /* Int+Extensions.swift */; };
+		0B796CC7281FD15100905235 /* SearchResultCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B796CC6281FD15000905235 /* SearchResultCellVM.swift */; };
+		0B796CC92829099800905235 /* CurrencyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B796CC82829099800905235 /* CurrencyExchange.swift */; };
+		0B796CCB282B47D900905235 /* CurrencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B796CCA282B47D900905235 /* CurrencyContainer.swift */; };
 		0B83CF3227F59EEA0089B418 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3127F59EEA0089B418 /* LogoView.swift */; };
 		0B83CF3427F6EC2E0089B418 /* CalculatorTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3327F6EC2E0089B418 /* CalculatorTVCell.swift */; };
 		0B83CF3627FA8E190089B418 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B83CF3527FA8E190089B418 /* Date+Extensions.swift */; };
@@ -49,7 +53,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B1FF22E27E07B370042B94D /* StockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModel.swift; sourceTree = "<group>"; };
+		0B1FF22E27E07B370042B94D /* StockListCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockListCellVM.swift; sourceTree = "<group>"; };
 		0B1FF23027E080F80042B94D /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		0B1FF23427E466A60042B94D /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		0B42124727CC91E0007345A3 /* StockTaxSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockTaxSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,8 +78,12 @@
 		0B5063DF27DEE5AD00B5B18E /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		0B5063E127DEEE7C00B5B18E /* StockPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPrice.swift; sourceTree = "<group>"; };
 		0B5063E527DF0A8B00B5B18E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		0B51C248282DF26C00A33C39 /* CurrencyBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyBus.swift; sourceTree = "<group>"; };
 		0B6C672E28066ED6009F13AB /* CalculatorResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResult.swift; sourceTree = "<group>"; };
 		0B796CC4281A2E8D00905235 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
+		0B796CC6281FD15000905235 /* SearchResultCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellVM.swift; sourceTree = "<group>"; };
+		0B796CC82829099800905235 /* CurrencyExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchange.swift; sourceTree = "<group>"; };
+		0B796CCA282B47D900905235 /* CurrencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyContainer.swift; sourceTree = "<group>"; };
 		0B83CF3127F59EEA0089B418 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		0B83CF3327F6EC2E0089B418 /* CalculatorTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTVCell.swift; sourceTree = "<group>"; };
 		0B83CF3527FA8E190089B418 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -127,6 +135,7 @@
 		0B42124927CC91E0007345A3 /* StockTaxSaver */ = {
 			isa = PBXGroup;
 			children = (
+				0B51C247282DF23E00A33C39 /* RxBus */,
 				0B42128427D5B344007345A3 /* DataPersistence */,
 				0B42128127D1B695007345A3 /* View */,
 				0B42127C27D0ABF0007345A3 /* ViewModel */,
@@ -176,6 +185,7 @@
 				0B5063E127DEEE7C00B5B18E /* StockPrice.swift */,
 				0B83CF3727FBCAB00089B418 /* CalculatorElement.swift */,
 				0B6C672E28066ED6009F13AB /* CalculatorResult.swift */,
+				0B796CC82829099800905235 /* CurrencyExchange.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,8 +204,9 @@
 			isa = PBXGroup;
 			children = (
 				0B42127D27D0B9D9007345A3 /* SearchResultViewModel.swift */,
+				0B796CC6281FD15000905235 /* SearchResultCellVM.swift */,
 				0B42128727D5DD69007345A3 /* StockListViewModel.swift */,
-				0B1FF22E27E07B370042B94D /* StockViewModel.swift */,
+				0B1FF22E27E07B370042B94D /* StockListCellVM.swift */,
 				0B83CF3927FC12660089B418 /* CalculatorElementViewModel.swift */,
 				0B83CF4527FEDA230089B418 /* CalculatorResultViewModel.swift */,
 				0BFA6B9328095E220043F903 /* CalculatorResultCellVM.swift */,
@@ -220,6 +231,14 @@
 			path = DataPersistence;
 			sourceTree = "<group>";
 		};
+		0B51C247282DF23E00A33C39 /* RxBus */ = {
+			isa = PBXGroup;
+			children = (
+				0B51C248282DF26C00A33C39 /* CurrencyBus.swift */,
+			);
+			path = RxBus;
+			sourceTree = "<group>";
+		};
 		0B83CF3D27FD362F0089B418 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +257,7 @@
 				0B83CF3B27FD34F90089B418 /* TfWithLabelOnTop.swift */,
 				0B83CF3F27FD63DC0089B418 /* TfWithPadding.swift */,
 				0B83CF4127FEA21B0089B418 /* ButtonWithLogo.swift */,
+				0B796CCA282B47D900905235 /* CurrencyContainer.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -374,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B42126727D0497A007345A3 /* AddStockController.swift in Sources */,
+				0B51C249282DF26C00A33C39 /* CurrencyBus.swift in Sources */,
 				0B42128827D5DD69007345A3 /* StockListViewModel.swift in Sources */,
 				0B42127E27D0B9D9007345A3 /* SearchResultViewModel.swift in Sources */,
 				0B42127127D083BF007345A3 /* APIService.swift in Sources */,
@@ -387,18 +408,21 @@
 				0B42128627D5B371007345A3 /* SaveService.swift in Sources */,
 				0B83CF4027FD63DC0089B418 /* TfWithPadding.swift in Sources */,
 				0B83CF4627FEDA230089B418 /* CalculatorResultViewModel.swift in Sources */,
+				0B796CC7281FD15100905235 /* SearchResultCellVM.swift in Sources */,
 				0B42126527D04925007345A3 /* StockListController.swift in Sources */,
-				0B1FF22F27E07B370042B94D /* StockViewModel.swift in Sources */,
+				0B1FF22F27E07B370042B94D /* StockListCellVM.swift in Sources */,
 				0B83CF3227F59EEA0089B418 /* LogoView.swift in Sources */,
 				0B83CF4227FEA21B0089B418 /* ButtonWithLogo.swift in Sources */,
 				0BFA6B9428095E220043F903 /* CalculatorResultCellVM.swift in Sources */,
 				0B42126227D041D2007345A3 /* UIViewController+Extentions.swift in Sources */,
 				0B83CF3827FBCAB00089B418 /* CalculatorElement.swift in Sources */,
+				0B796CCB282B47D900905235 /* CurrencyContainer.swift in Sources */,
 				0B5063E027DEE5AD00B5B18E /* SearchResponse.swift in Sources */,
 				0B83CF3C27FD34F90089B418 /* TfWithLabelOnTop.swift in Sources */,
 				0B5063E627DF0A8B00B5B18E /* Endpoint.swift in Sources */,
 				0B83CF3627FA8E190089B418 /* Date+Extensions.swift in Sources */,
 				0B83CF4427FECA370089B418 /* CalculatorResultController.swift in Sources */,
+				0B796CC92829099800905235 /* CurrencyExchange.swift in Sources */,
 				0BDAE929280FB4160072A41D /* Constants.swift in Sources */,
 				0B42127527D09D76007345A3 /* NetworkError.swift in Sources */,
 				0B83CF3A27FC12660089B418 /* CalculatorElementViewModel.swift in Sources */,
@@ -477,7 +501,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -532,7 +556,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -549,25 +573,27 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Y72Y7XC8NM;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = S39MG7DJYC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StockTaxSaver/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = gamsterbi.StockTaxSaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -578,25 +604,27 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Y72Y7XC8NM;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = S39MG7DJYC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StockTaxSaver/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = gamsterbi.StockTaxSaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

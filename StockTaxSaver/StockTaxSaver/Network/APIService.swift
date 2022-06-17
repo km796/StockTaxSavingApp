@@ -18,7 +18,7 @@ struct APIService {
             completion(.failure(.invalidURL))
             return
         }
-        print(url)
+//        print(url)
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
@@ -40,6 +40,7 @@ struct APIService {
             completion(.failure(.invalidURL))
             return
         }
+//        print(url)
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
                 completion(.failure(.requestFailed))
@@ -53,6 +54,27 @@ struct APIService {
             }
         }.resume()
         
+    }
+    
+    func fetchCurrencyExchange(with endpoint: Endpoint, completion: @escaping (Result<[CurrencyExchange], NetworkError>)-> Void) {
+        guard let url = endpoint.url else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(.failure(.requestFailed))
+                return
+            }
+            
+            do {
+                let currencyExchange = try JSONDecoder().decode([CurrencyExchange].self, from: data)
+                completion(.success(currencyExchange))
+            } catch {
+                completion(.failure(.decodingFailed))
+            }
+        }.resume()
     }
 }
 
